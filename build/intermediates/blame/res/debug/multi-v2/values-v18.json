@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/pundix42/Desktop/Android9.0LatinIME/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "/Users/pundix42/Desktop/Android9.0LatinIME/java/res/values-v18/emoji-categories.xml",
+                    "from": {
+                        "startLines": "888,431,19,589,756,202",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "25466,12552,849,16992,21522,6044",
+                        "endLines": "907,588,201,755,887,430",
+                        "endColumns": "12,12,12,12,12,12",
+                        "endOffsets": "25923,16987,6039,21517,25461,12547"
+                    },
+                    "to": {
+                        "startLines": "2,19,174,354,518,647",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,496,4915,10089,14598,18521",
+                        "endLines": "18,173,353,517,646,872",
+                        "endColumns": "12,12,12,12,12,12",
+                        "endOffsets": "491,4910,10084,14593,18516,25003"
+                    }
+                }
+            ]
+        }
+    ]
+}

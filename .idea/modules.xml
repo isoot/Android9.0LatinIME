@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LatinIME.iml" filepath="$PROJECT_DIR$/LatinIME.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android9.0LatinIME.iml" filepath="$PROJECT_DIR$/Android9.0LatinIME.iml" />
     </modules>
   </component>
 </project>

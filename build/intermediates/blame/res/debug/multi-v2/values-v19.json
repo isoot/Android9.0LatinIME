@@ -1,0 +1,47 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/pundix42/Desktop/Android9.0LatinIME/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v19/values-v19.xml",
+            "map": [
+                {
+                    "source": "/Users/pundix42/Desktop/Android9.0LatinIME/java/res/values-v19/emoji-categories.xml",
+                    "from": {
+                        "startLines": "2170,1355,2452,1933,2008,1453,1703,1142,2242,1122,431,888,19,589,756,202",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "63435,39544,71599,56673,58654,42202,49987,33394,65479,32932,12509,25294,859,16715,21164,5739",
+                        "endLines": "2241,1452,2713,2007,2169,1702,1932,1354,2451,1141,588,1121,201,755,887,430",
+                        "endColumns": "12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12",
+                        "endOffsets": "65474,42197,80162,58649,63430,49982,56668,39539,71594,33389,16710,32927,5734,21159,25289,12504"
+                    },
+                    "to": {
+                        "startLines": "2,71,166,425,497,656,903,1130,1340,1547,1564,1719,1950,2130,2294,2423",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,2078,4715,13262,15222,19982,27746,34411,40540,46639,47080,51265,58882,63741,68169,72278",
+                        "endLines": "70,165,424,496,655,902,1129,1339,1546,1563,1718,1949,2129,2293,2422,2648",
+                        "endColumns": "12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12",
+                        "endOffsets": "2073,4710,13257,15217,19977,27741,34406,40535,46634,47075,51260,58877,63736,68164,72273,79022"
+                    }
+                },
+                {
+                    "source": "/Users/pundix42/Desktop/Android9.0LatinIME/java/res/values-v19/spinner-style.xml",
+                    "from": {
+                        "startLines": "24",
+                        "startColumns": "4",
+                        "startOffsets": "998",
+                        "endLines": "26",
+                        "endColumns": "12",
+                        "endOffsets": "1110"
+                    },
+                    "to": {
+                        "startLines": "2649",
+                        "startColumns": "4",
+                        "startOffsets": "79027",
+                        "endLines": "2651",
+                        "endColumns": "12",
+                        "endOffsets": "79139"
+                    }
+                }
+            ]
+        }
+    ]
+}
