@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/pundix42/Desktop/inputmethods/LatinIME/build/intermediates/incremental/mergeDebugResources/merged.dir/values-iw-sw600dp-v13/values-iw-sw600dp-v13.xml",
+            "map": [
+                {
+                    "source": "/Users/pundix42/Desktop/inputmethods/LatinIME/java/res/values-iw-sw600dp/donottranslate-config-spacing-and-punctuations.xml",
+                    "from": {
+                        "startLines": "23",
+                        "startColumns": "4",
+                        "startOffsets": "917",
+                        "endColumns": "76",
+                        "endOffsets": "989"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "76",
+                        "endOffsets": "127"
+                    }
+                }
+            ]
+        }
+    ]
+}

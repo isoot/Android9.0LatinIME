@@ -1,0 +1,83 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/pundix42/Desktop/inputmethods/LatinIME/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v21/values-v21.xml",
+            "map": [
+                {
+                    "source": "/Users/pundix42/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/2c5ce2b3b37ed764502ae3724c8ac828/res/values-v21/values-v21.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,159,223,290,354,470,596,722,850,1022",
+                        "endLines": "2,3,4,5,6,7,8,9,12,17",
+                        "endColumns": "103,63,66,63,115,125,125,127,12,12",
+                        "endOffsets": "154,218,285,349,465,591,717,845,1017,1355"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,9,10,17,21,25,28",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,159,223,290,469,585,1042,1336,1631,1803",
+                        "endLines": "2,3,4,5,9,10,17,21,27,32",
+                        "endColumns": "103,63,66,63,115,125,125,127,12,12",
+                        "endOffsets": "154,218,285,349,580,706,1163,1459,1798,2136"
+                    }
+                },
+                {
+                    "source": "/Users/pundix42/Desktop/inputmethods/LatinIME/java/res/values-v21/platform-theme.xml",
+                    "from": {
+                        "startLines": "21,23,22",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "742,931,835",
+                        "endColumns": "92,97,95",
+                        "endOffsets": "830,1024,926"
+                    },
+                    "to": {
+                        "startLines": "33,34,35",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "2141,2233,2330",
+                        "endColumns": "91,96,94",
+                        "endOffsets": "2228,2325,2420"
+                    }
+                },
+                {
+                    "source": "/Users/pundix42/Desktop/inputmethods/LatinIME/java/res/values-v21/themes-lxx.xml",
+                    "from": {
+                        "startLines": "21",
+                        "startColumns": "4",
+                        "startOffsets": "742",
+                        "endLines": "26",
+                        "endColumns": "12",
+                        "endOffsets": "873"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "354",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "464"
+                    }
+                },
+                {
+                    "source": "/Users/pundix42/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/99ac9a38556699a46e6bb33af0264141/res/values-v21/values-v21.xml",
+                    "from": {
+                        "startLines": "2,5,8,11",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,223,386,554",
+                        "endLines": "4,7,10,13",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "218,381,549,716"
+                    },
+                    "to": {
+                        "startLines": "11,14,18,22",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "711,879,1168,1464",
+                        "endLines": "13,16,20,24",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "874,1037,1331,1626"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/pundix42/Desktop/inputmethods/LatinIME/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en/values-en.xml",
+            "map": [
+                {
+                    "source": "/Users/pundix42/Desktop/inputmethods/LatinIME/java/res/values-en/bools.xml",
+                    "from": {
+                        "startLines": "22",
+                        "startColumns": "4",
+                        "startOffsets": "811",
+                        "endColumns": "42",
+                        "endOffsets": "849"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "42",
+                        "endOffsets": "93"
+                    }
+                }
+            ]
+        }
+    ]
+}

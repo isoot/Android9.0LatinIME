@@ -1,0 +1,43 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/pundix42/Desktop/inputmethods/LatinIME/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw430dp-v13/values-sw430dp-v13.xml",
+            "map": [
+                {
+                    "source": "/Users/pundix42/Desktop/inputmethods/LatinIME/java/res/values-sw430dp/config-screen-metrics.xml",
+                    "from": {
+                        "startLines": "22",
+                        "startColumns": "4",
+                        "startOffsets": "763",
+                        "endColumns": "53",
+                        "endOffsets": "812"
+                    },
+                    "to": {
+                        "startLines": "9",
+                        "startColumns": "4",
+                        "startOffsets": "518",
+                        "endColumns": "53",
+                        "endOffsets": "567"
+                    }
+                },
+                {
+                    "source": "/Users/pundix42/Desktop/inputmethods/LatinIME/java/res/values-sw430dp/config-per-form-factor.xml",
+                    "from": {
+                        "startLines": "24,25,22,26,27,30,31",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "872,934,730,993,1058,1243,1321",
+                        "endColumns": "61,58,72,64,68,77,56",
+                        "endOffsets": "929,988,798,1053,1122,1316,1373"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,117,176,249,314,383,461",
+                        "endColumns": "61,58,72,64,68,77,56",
+                        "endOffsets": "112,171,244,309,378,456,513"
+                    }
+                }
+            ]
+        }
+    ]
+}
