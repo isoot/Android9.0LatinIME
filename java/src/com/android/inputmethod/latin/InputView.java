@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.android.inputmethod.accessibility.AccessibilityUtils;
 import com.android.inputmethod.keyboard.MainKeyboardView;
@@ -41,9 +42,10 @@ public final class InputView extends FrameLayout {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         final SuggestionStripView suggestionStripView =
-                (SuggestionStripView)findViewById(R.id.suggestion_strip_view);
-        mMainKeyboardView = (MainKeyboardView)findViewById(R.id.keyboard_view);
+                (SuggestionStripView) findViewById(R.id.suggestion_strip_view);
+        mMainKeyboardView = (MainKeyboardView) findViewById(R.id.keyboard_view);
         mKeyboardTopPaddingForwarder = new KeyboardTopPaddingForwarder(
                 mMainKeyboardView, suggestionStripView);
         mMoreSuggestionsViewCanceler = new MoreSuggestionsViewCanceler(
@@ -114,7 +116,7 @@ public final class InputView extends FrameLayout {
      *     <SenderView>.
      */
     private static abstract class
-            MotionEventForwarder<SenderView extends View, ReceiverView extends View> {
+    MotionEventForwarder<SenderView extends View, ReceiverView extends View> {
         protected final SenderView mSenderView;
         protected final ReceiverView mReceiverView;
 
@@ -191,7 +193,7 @@ public final class InputView extends FrameLayout {
         private int mKeyboardTopPadding;
 
         public KeyboardTopPaddingForwarder(final MainKeyboardView mainKeyboardView,
-                final SuggestionStripView suggestionStripView) {
+                                           final SuggestionStripView suggestionStripView) {
             super(mainKeyboardView, suggestionStripView);
         }
 
@@ -233,7 +235,7 @@ public final class InputView extends FrameLayout {
     private static class MoreSuggestionsViewCanceler
             extends MotionEventForwarder<MainKeyboardView, SuggestionStripView> {
         public MoreSuggestionsViewCanceler(final MainKeyboardView mainKeyboardView,
-                final SuggestionStripView suggestionStripView) {
+                                           final SuggestionStripView suggestionStripView) {
             super(mainKeyboardView, suggestionStripView);
         }
 

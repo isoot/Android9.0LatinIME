@@ -26,11 +26,14 @@ import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.inputmethod.keyboard.internal.KeyDrawParams;
 import com.android.inputmethod.keyboard.internal.KeyVisualAttributes;
@@ -78,6 +81,8 @@ import javax.annotation.Nullable;
  * @attr ref R.styleable#Keyboard_Key_keyPreviewTextColor
  */
 public class KeyboardView extends View {
+
+    private static final String TAG = "TiKeyboardView";
     // XML attributes
     private final KeyVisualAttributes mKeyVisualAttributes;
     // Default keyLabelFlags from {@link KeyboardTheme}.
@@ -107,15 +112,25 @@ public class KeyboardView extends View {
     private final KeyDrawParams mKeyDrawParams = new KeyDrawParams();
 
     // Drawing
-    /** True if all keys should be drawn */
+    /**
+     * True if all keys should be drawn
+     */
     private boolean mInvalidateAllKeys;
-    /** The keys that should be drawn */
+    /**
+     * The keys that should be drawn
+     */
     private final HashSet<Key> mInvalidatedKeys = new HashSet<>();
-    /** The working rectangle for clipping */
+    /**
+     * The working rectangle for clipping
+     */
     private final Rect mClipRect = new Rect();
-    /** The keyboard bitmap buffer for faster updates */
+    /**
+     * The keyboard bitmap buffer for faster updates
+     */
     private Bitmap mOffscreenBuffer;
-    /** The canvas for the above mutable keyboard bitmap */
+    /**
+     * The canvas for the above mutable keyboard bitmap
+     */
     @Nonnull
     private final Canvas mOffscreenCanvas = new Canvas();
     @Nonnull
@@ -131,12 +146,15 @@ public class KeyboardView extends View {
 
         final TypedArray keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView);
+
         mKeyBackground = keyboardViewAttr.getDrawable(R.styleable.KeyboardView_keyBackground);
         mKeyBackground.getPadding(mKeyBackgroundPadding);
+
         final Drawable functionalKeyBackground = keyboardViewAttr.getDrawable(
                 R.styleable.KeyboardView_functionalKeyBackground);
         mFunctionalKeyBackground = (functionalKeyBackground != null) ? functionalKeyBackground
                 : mKeyBackground;
+
         final Drawable spacebarBackground = keyboardViewAttr.getDrawable(
                 R.styleable.KeyboardView_spacebarBackground);
         mSpacebarBackground = (spacebarBackground != null) ? spacebarBackground : mKeyBackground;
@@ -185,9 +203,10 @@ public class KeyboardView extends View {
     /**
      * Attaches a keyboard to this view. The keyboard can be switched at any time and the
      * view will re-layout itself to accommodate the keyboard.
+     *
+     * @param keyboard the keyboard to display in this view
      * @see Keyboard
      * @see #getKeyboard()
-     * @param keyboard the keyboard to display in this view
      */
     public void setKeyboard(@Nonnull final Keyboard keyboard) {
         mKeyboard = keyboard;
@@ -200,6 +219,7 @@ public class KeyboardView extends View {
 
     /**
      * Returns the current keyboard being displayed by this view.
+     *
      * @return the currently attached keyboard
      * @see #setKeyboard(Keyboard)
      */
@@ -325,7 +345,7 @@ public class KeyboardView extends View {
     }
 
     private void onDrawKey(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Paint paint) {
+                           @Nonnull final Paint paint) {
         final int keyDrawX = key.getDrawX() + getPaddingLeft();
         final int keyDrawY = key.getY() + getPaddingTop();
         canvas.translate(keyDrawX, keyDrawY);
@@ -337,18 +357,18 @@ public class KeyboardView extends View {
         if (!key.isSpacer()) {
             final Drawable background = key.selectBackgroundDrawable(
                     mKeyBackground, mFunctionalKeyBackground, mSpacebarBackground);
-            if (background != null) {
+            if (background != null /*&& key.getCode() != 10*/) {
                 onDrawKeyBackground(key, canvas, background);
             }
         }
-        onDrawKeyTopVisuals(key, canvas, paint, params);
 
+        onDrawKeyTopVisuals(key, canvas, paint, params);
         canvas.translate(-keyDrawX, -keyDrawY);
     }
 
     // Draw key background.
     protected void onDrawKeyBackground(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Drawable background) {
+                                       @Nonnull final Drawable background) {
         final int keyWidth = key.getDrawWidth();
         final int keyHeight = key.getHeight();
         final int bgWidth, bgHeight, bgX, bgY;
@@ -358,9 +378,9 @@ public class KeyboardView extends View {
             final int intrinsicWidth = background.getIntrinsicWidth();
             final int intrinsicHeight = background.getIntrinsicHeight();
             final float minScale = Math.min(
-                    keyWidth / (float)intrinsicWidth, keyHeight / (float)intrinsicHeight);
-            bgWidth = (int)(intrinsicWidth * minScale);
-            bgHeight = (int)(intrinsicHeight * minScale);
+                    keyWidth / (float) intrinsicWidth, keyHeight / (float) intrinsicHeight);
+            bgWidth = (int) (intrinsicWidth * minScale);
+            bgHeight = (int) (intrinsicHeight * minScale);
             bgX = (keyWidth - bgWidth) / 2;
             bgY = (keyHeight - bgHeight) / 2;
         } else {
@@ -381,7 +401,7 @@ public class KeyboardView extends View {
 
     // Draw key top visuals.
     protected void onDrawKeyTopVisuals(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Paint paint, @Nonnull final KeyDrawParams params) {
+                                       @Nonnull final Paint paint, @Nonnull final KeyDrawParams params) {
         final int keyWidth = key.getDrawWidth();
         final int keyHeight = key.getHeight();
         final float centerX = keyWidth * 0.5f;
@@ -488,7 +508,7 @@ public class KeyboardView extends View {
         if (label == null && icon != null) {
             final int iconWidth;
             if (key.getCode() == Constants.CODE_SPACE && icon instanceof NinePatchDrawable) {
-                iconWidth = (int)(keyWidth * mSpacebarIconWidthRatio);
+                iconWidth = (int) (keyWidth * mSpacebarIconWidthRatio);
             } else {
                 iconWidth = Math.min(icon.getIntrinsicWidth(), keyWidth);
             }
@@ -510,7 +530,7 @@ public class KeyboardView extends View {
 
     // Draw popup hint "..." at the bottom right corner of the key.
     protected void drawKeyPopupHint(@Nonnull final Key key, @Nonnull final Canvas canvas,
-            @Nonnull final Paint paint, @Nonnull final KeyDrawParams params) {
+                                    @Nonnull final Paint paint, @Nonnull final KeyDrawParams params) {
         if (TextUtils.isEmpty(mKeyPopupHintLetter)) {
             return;
         }
@@ -527,8 +547,8 @@ public class KeyboardView extends View {
         canvas.drawText(mKeyPopupHintLetter, hintX, hintY, paint);
     }
 
-    protected static void drawIcon(@Nonnull final Canvas canvas,@Nonnull final Drawable icon,
-            final int x, final int y, final int width, final int height) {
+    protected static void drawIcon(@Nonnull final Canvas canvas, @Nonnull final Drawable icon,
+                                   final int x, final int y, final int width, final int height) {
         canvas.translate(x, y);
         icon.setBounds(0, 0, width, height);
         icon.draw(canvas);
@@ -553,6 +573,7 @@ public class KeyboardView extends View {
      * Requests a redraw of the entire keyboard. Calling {@link #invalidate} is not sufficient
      * because the keyboard renders the keys to an off-screen buffer and an invalidate() only
      * draws the cached buffer.
+     *
      * @see #invalidateKey(Key)
      */
     public void invalidateAllKeys() {
@@ -565,6 +586,7 @@ public class KeyboardView extends View {
      * Invalidates a key so that it will be redrawn on the next repaint. Use this method if only
      * one key is changing it's content. Any changes that affect the position or size of the key
      * may not be honored.
+     *
      * @param key key in the attached {@link Keyboard}.
      * @see #invalidateAllKeys
      */

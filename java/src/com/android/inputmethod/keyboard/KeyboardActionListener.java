@@ -99,7 +99,7 @@ public interface KeyboardActionListener {
      * Send a non-"code input" custom request to the listener.
      * @return true if the request has been consumed, false otherwise.
      */
-    public boolean onCustomRequest(int requestCode);
+    public boolean onCustomRequest(int code,int requestCode);
 
     public static final KeyboardActionListener EMPTY_LISTENER = new Adapter();
 
@@ -125,7 +125,7 @@ public interface KeyboardActionListener {
         @Override
         public void onFinishSlidingInput() {}
         @Override
-        public boolean onCustomRequest(int requestCode) {
+        public boolean onCustomRequest(int code,int requestCode) {
             return false;
         }
     }
