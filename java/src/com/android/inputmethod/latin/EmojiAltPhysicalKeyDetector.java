@@ -16,6 +16,7 @@
 
 package com.android.inputmethod.latin;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.util.Log;
 import android.util.Pair;
@@ -23,17 +24,18 @@ import android.view.KeyEvent;
 
 import com.android.inputmethod.keyboard.KeyboardSwitcher;
 import com.android.inputmethod.latin.settings.Settings;
+import com.android.inputmethod.tian.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 /**
  * A class for detecting Emoji-Alt physical key.
  */
+@SuppressLint("LongLogTag")
 final class EmojiAltPhysicalKeyDetector {
     private static final String TAG = "EmojiAltPhysicalKeyDetector";
     private static final boolean DEBUG = false;

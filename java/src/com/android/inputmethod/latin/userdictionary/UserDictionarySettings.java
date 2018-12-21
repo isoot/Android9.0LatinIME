@@ -16,7 +16,7 @@
 
 package com.android.inputmethod.latin.userdictionary;
 
-import com.android.inputmethod.latin.R;
+import com.android.inputmethod.tian.R;
 
 import android.app.ListFragment;
 import android.content.ContentResolver;

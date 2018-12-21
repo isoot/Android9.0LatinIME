@@ -16,10 +16,6 @@
 
 package com.android.inputmethod.latin;
 
-import static com.android.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
-import static com.android.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
-import static com.android.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
-
 import android.Manifest.permission;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -58,7 +54,6 @@ import com.android.inputmethod.annotations.UsedForTesting;
 import com.android.inputmethod.compat.BuildCompatUtils;
 import com.android.inputmethod.compat.EditorInfoCompatUtils;
 import com.android.inputmethod.compat.InputMethodServiceCompatUtils;
-import com.android.inputmethod.compat.InputMethodSubtypeCompatUtils;
 import com.android.inputmethod.compat.ViewOutlineProviderCompatUtils;
 import com.android.inputmethod.compat.ViewOutlineProviderCompatUtils.InsetsUpdater;
 import com.android.inputmethod.dictionarypack.DictionaryPackConstants;
@@ -97,6 +92,7 @@ import com.android.inputmethod.latin.utils.StatsUtils;
 import com.android.inputmethod.latin.utils.StatsUtilsManager;
 import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
 import com.android.inputmethod.latin.utils.ViewLayoutUtils;
+import com.android.inputmethod.tian.R;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -106,6 +102,10 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
+
+import static com.android.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
+import static com.android.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
+import static com.android.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -127,13 +127,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * A broadcast intent action to hide the software keyboard.
      */
     static final String ACTION_HIDE_SOFT_INPUT =
-            "com.android.inputmethod.latin.HIDE_SOFT_INPUT";
+            "com.android.inputmethod.tian.HIDE_SOFT_INPUT";
 
     /**
      * A custom permission for external apps to send {@link #ACTION_HIDE_SOFT_INPUT}.
      */
     static final String PERMISSION_HIDE_SOFT_INPUT =
-            "com.android.inputmethod.latin.HIDE_SOFT_INPUT";
+            "com.android.inputmethod.tian.HIDE_SOFT_INPUT";
 
     /**
      * The name of the scheme used by the Package Manager to warn of a new package installation,
