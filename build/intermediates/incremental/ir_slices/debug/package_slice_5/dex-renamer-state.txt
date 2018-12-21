@@ -1,4 +1,0 @@
-#Thu Dec 20 13:53:28 CST 2018
-base.0=/Users/pundix42/Desktop/Android9.0LatinIME/build/intermediates/transforms/dexMerger/debug/5
-path.0=classes.dex
-renamed.0=classes.dex
