@@ -18,6 +18,7 @@ package com.android.inputmethod.latin.inputlogic;
 
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -64,7 +65,6 @@ import java.util.Locale;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nonnull;
 
 /**
  * This class manages the input logic.
@@ -288,7 +288,7 @@ public final class InputLogic {
             // Rely on onCodeInput to do the complicated swapping/stripping logic consistently.
             final Event event = Event.createPunctuationSuggestionPickedEvent(suggestionInfo);
             return onCodeInput(settingsValues, event, keyboardShiftState,
-                    currentKeyboardScriptId, handler);
+                    currentKeyboardScriptId, handler, getCurrentInputEditorInfo().inputType);
         }
 
         final Event event = Event.createSuggestionPickedEvent(suggestionInfo);
@@ -440,8 +440,9 @@ public final class InputLogic {
      * @return the complete transaction object
      */
     public InputTransaction onCodeInput(final SettingsValues settingsValues,
-                                        @Nonnull final Event event, final int keyboardShiftMode,
-                                        final int currentKeyboardScriptId, final LatinIME.UIHandler handler) {
+                                        final Event event, final int keyboardShiftMode,
+                                        final int currentKeyboardScriptId, final LatinIME.UIHandler handler
+            , int inputType) {
         mWordBeingCorrectedByCursor = null;
         final Event processedEvent = mWordComposer.processEvent(event);
         final InputTransaction inputTransaction = new InputTransaction(settingsValues,
@@ -472,6 +473,7 @@ public final class InputLogic {
                 handleFunctionalEvent(currentEvent, inputTransaction, currentKeyboardScriptId,
                         handler);
             } else {
+                //交付数据
                 handleNonFunctionalEvent(currentEvent, inputTransaction, handler);
             }
             currentEvent = currentEvent.mNextEvent;
@@ -1253,7 +1255,7 @@ public final class InputLogic {
         mLatinIME.switchToNextSubtype();
     }
 
-    public void showEmoji(int code){
+    public void showEmoji(int code) {
         mLatinIME.onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */);
     }
@@ -1440,7 +1442,7 @@ public final class InputLogic {
     }
 
     private void performAdditionToUserHistoryDictionary(final SettingsValues settingsValues,
-                                                        final String suggestion, @Nonnull final NgramContext ngramContext) {
+                                                        final String suggestion, final NgramContext ngramContext) {
         // If correction is not enabled, we don't add words to the user history dictionary.
         // That's to avoid unintended additions in some sensitive fields, or fields that
         // expect to receive non-words.
@@ -1951,7 +1953,7 @@ public final class InputLogic {
      * @return the {@link Locale} of the {@link #mDictionaryFacilitator} if available. Otherwise
      * {@link Locale#ROOT}.
      */
-    @Nonnull
+
     private Locale getDictionaryFacilitatorLocale() {
         return mDictionaryFacilitator != null ? mDictionaryFacilitator.getLocale() : Locale.ROOT;
     }
@@ -2014,6 +2016,10 @@ public final class InputLogic {
     private void sendKeyCodePoint(final SettingsValues settingsValues, final int codePoint) {
         // TODO: Remove this special handling of digit letters.
         // For backward compatibility. See {@link InputMethodService#sendKeyChar(char)}.
+
+
+        Log.i(TAG, "sendKeyCodePoint: codePoint:" + codePoint);
+
         if (codePoint >= '0' && codePoint <= '9') {
             sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
             return;

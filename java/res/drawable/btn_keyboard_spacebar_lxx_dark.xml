@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,7 +14,42 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true"
-          android:drawable="@drawable/btn_keyboard_spacebar_pressed_lxx_dark" />
-    <item android:drawable="@drawable/btn_keyboard_spacebar_normal_lxx_dark" />
+    <!-- Action keys. -->
+    <item android:state_active="true" android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/key_background_pressed_lxx_dark" />
+            <corners android:radius="@dimen/circle_size2" />
+        </shape>
+    </item>
+    <item android:state_active="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/key_background_lxx_dark" />
+            <corners android:radius="@dimen/circle_size2" />
+        </shape>
+    </item>
+
+    <!-- Empty background keys. -->
+    <item android:state_empty="true" android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/sliding_key_input_preview_color_lxx_dark" />
+            <corners android:radius="@dimen/circle_size2" />
+        </shape>
+    </item>
+    <item android:drawable="@android:color/transparent" android:state_empty="true">
+
+    </item>
+
+    <!-- Normal keys. -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/sliding_key_input_preview_color_lxx_dark" />
+            <corners android:radius="@dimen/circle_size2" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/key_background_pressed_lxx_dark" />
+            <corners android:radius="@dimen/circle_size2" />
+        </shape>
+    </item>
 </selector>

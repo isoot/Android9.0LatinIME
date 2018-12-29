@@ -34,7 +34,7 @@ public abstract class AbstractDrawingPreview {
     private boolean mPreviewEnabled;
     private boolean mHasValidGeometry;
 
-    public void setDrawingView(@Nonnull final DrawingPreviewPlacerView drawingView) {
+    public void setDrawingView( final DrawingPreviewPlacerView drawingView) {
         mDrawingView = drawingView;
         drawingView.addPreview(this);
     }
@@ -63,7 +63,7 @@ public abstract class AbstractDrawingPreview {
      * @param width the width of {@link MainKeyboardView}.
      * @param height the height of {@link MainKeyboardView}.
      */
-    public void setKeyboardViewGeometry(@Nonnull final int[] originCoords, final int width,
+    public void setKeyboardViewGeometry( final int[] originCoords, final int width,
             final int height) {
         mHasValidGeometry = (width > 0 && height > 0);
     }
@@ -74,11 +74,11 @@ public abstract class AbstractDrawingPreview {
      * Draws the preview
      * @param canvas The canvas where the preview is drawn.
      */
-    public abstract void drawPreview(@Nonnull final Canvas canvas);
+    public abstract void drawPreview( final Canvas canvas);
 
     /**
      * Set the position of the preview.
      * @param tracker The new location of the preview is based on the points in PointerTracker.
      */
-    public abstract void setPreviewPosition(@Nonnull final PointerTracker tracker);
+    public abstract void setPreviewPosition( final PointerTracker tracker);
 }

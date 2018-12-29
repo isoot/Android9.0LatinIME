@@ -17,14 +17,13 @@
 package com.android.inputmethod.keyboard.internal;
 
 import android.graphics.Typeface;
+import android.support.annotation.Nullable;
 
 import com.android.inputmethod.latin.utils.ResourceUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public final class KeyDrawParams {
-    @Nonnull
+
     public Typeface mTypeface = Typeface.DEFAULT;
 
     public int mLetterSize;
@@ -53,7 +52,7 @@ public final class KeyDrawParams {
 
     public KeyDrawParams() {}
 
-    private KeyDrawParams(@Nonnull final KeyDrawParams copyFrom) {
+    private KeyDrawParams( final KeyDrawParams copyFrom) {
         mTypeface = copyFrom.mTypeface;
 
         mLetterSize = copyFrom.mLetterSize;
@@ -121,7 +120,7 @@ public final class KeyDrawParams {
                 attr.mHintLabelOffCenterRatio, mHintLabelOffCenterRatio);
     }
 
-    @Nonnull
+
     public KeyDrawParams mayCloneAndUpdateParams(final int keyHeight,
             @Nullable final KeyVisualAttributes attr) {
         if (attr == null) {

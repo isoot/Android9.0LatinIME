@@ -95,7 +95,7 @@ public final class CursorAnchorInfoUtils {
      */
     @Nullable
     public static CursorAnchorInfoCompatWrapper extractFromTextView(
-            @Nonnull final TextView textView) {
+             final TextView textView) {
         if (BuildCompatUtils.EFFECTIVE_SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return null;
         }
@@ -110,7 +110,7 @@ public final class CursorAnchorInfoUtils {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Nullable
-    private static CursorAnchorInfo extractFromTextViewInternal(@Nonnull final TextView textView) {
+    private static CursorAnchorInfo extractFromTextViewInternal( final TextView textView) {
         final Layout layout = textView.getLayout();
         if (layout == null) {
             return null;

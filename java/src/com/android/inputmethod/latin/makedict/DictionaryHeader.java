@@ -27,15 +27,15 @@ import javax.annotation.Nullable;
  */
 public final class DictionaryHeader {
     public final int mBodyOffset;
-    @Nonnull
+
     public final DictionaryOptions mDictionaryOptions;
-    @Nonnull
+
     public final FormatOptions mFormatOptions;
-    @Nonnull
+
     public final String mLocaleString;
-    @Nonnull
+
     public final String mVersionString;
-    @Nonnull
+
     public final String mIdString;
 
     // Note that these are corresponding definitions in native code in latinime::HeaderPolicy
@@ -58,8 +58,8 @@ public final class DictionaryHeader {
     public static final String CODE_POINT_TABLE_KEY = "codePointTable";
 
     public DictionaryHeader(final int headerSize,
-            @Nonnull final DictionaryOptions dictionaryOptions,
-            @Nonnull final FormatOptions formatOptions) throws UnsupportedFormatException {
+             final DictionaryOptions dictionaryOptions,
+             final FormatOptions formatOptions) throws UnsupportedFormatException {
         mDictionaryOptions = dictionaryOptions;
         mFormatOptions = formatOptions;
         mBodyOffset = formatOptions.mVersion < FormatSpec.VERSION4 ? headerSize : 0;

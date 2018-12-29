@@ -40,7 +40,7 @@ public class PersonalizationHelper {
     private static final ConcurrentHashMap<String, SoftReference<UserHistoryDictionary>>
             sLangUserHistoryDictCache = new ConcurrentHashMap<>();
 
-    @Nonnull
+
     public static UserHistoryDictionary getUserHistoryDictionary(
             final Context context, final Locale locale, @Nullable final String accountName) {
         String lookupStr = locale.toString();

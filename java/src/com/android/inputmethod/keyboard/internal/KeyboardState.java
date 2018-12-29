@@ -42,7 +42,7 @@ public final class KeyboardState {
     private static final boolean DEBUG_INTERNAL_ACTION = false;
 
     public interface SwitchActions {
-        public static final boolean DEBUG_ACTION = false;
+        public static final boolean DEBUG_ACTION = true;
 
         public void setAlphabetKeyboard();
         public void setAlphabetManualShiftedKeyboard();

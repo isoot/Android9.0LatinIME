@@ -79,7 +79,7 @@ public class WordListMetadata {
      *
      * If this lacks any required field, IllegalArgumentException is thrown.
      */
-    public static WordListMetadata createFromContentValues(@Nonnull final ContentValues values) {
+    public static WordListMetadata createFromContentValues( final ContentValues values) {
         final String id = values.getAsString(MetadataDbHelper.WORDLISTID_COLUMN);
         final Integer type = values.getAsInteger(MetadataDbHelper.TYPE_COLUMN);
         final String description = values.getAsString(MetadataDbHelper.DESCRIPTION_COLUMN);

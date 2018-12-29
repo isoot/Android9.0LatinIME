@@ -34,6 +34,11 @@
     <Element
         latin:elementName="phone"
         latin:elementKeyboard="@xml/kbd_phone" />
+
+    <Element
+        latin:elementName="phone_pundxi"
+        latin:elementKeyboard="@xml/kbd_phone_pundxi" />
+
     <Element
         latin:elementName="phoneSymbols"
         latin:elementKeyboard="@xml/kbd_phone_symbols" />

@@ -84,7 +84,7 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
 
         private final InputMethodManager mImmInHandler;
 
-        public SettingsPoolingHandler(@Nonnull final SetupWizardActivity ownerInstance,
+        public SettingsPoolingHandler( final SetupWizardActivity ownerInstance,
                 final InputMethodManager imm) {
             super(ownerInstance);
             mImmInHandler = imm;

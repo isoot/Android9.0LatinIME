@@ -46,8 +46,8 @@ public class PermissionsManager {
         mContext = context;
     }
 
-    @Nonnull
-    public static synchronized PermissionsManager get(@Nonnull Context context) {
+
+    public static synchronized PermissionsManager get( Context context) {
         if (sInstance == null) {
             sInstance = new PermissionsManager(context);
         }
@@ -59,7 +59,7 @@ public class PermissionsManager {
     }
 
 
-    public synchronized void requestPermissions(@Nonnull PermissionsResultCallback callback,
+    public synchronized void requestPermissions( PermissionsResultCallback callback,
                                    @Nullable Activity activity,
                                    String... permissionsToRequest) {
         List<String> deniedPermissions = PermissionsUtil.getDeniedPermissions(

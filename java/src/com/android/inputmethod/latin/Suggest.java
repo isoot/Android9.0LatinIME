@@ -136,7 +136,7 @@ public final class Suggest {
     }
 
     private static SuggestedWordInfo getWhitelistedWordInfoOrNull(
-            @Nonnull final ArrayList<SuggestedWordInfo> suggestions) {
+             final ArrayList<SuggestedWordInfo> suggestions) {
         if (suggestions.isEmpty()) {
             return null;
         }

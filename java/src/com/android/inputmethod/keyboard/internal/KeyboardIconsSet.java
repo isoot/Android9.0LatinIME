@@ -130,7 +130,7 @@ public final class KeyboardIconsSet {
         return iconId >= 0 && iconId < ICON_NAMES.length;
     }
 
-    @Nonnull
+
     public static String getIconName(final int iconId) {
         return isValidIconId(iconId) ? ICON_NAMES[iconId] : "unknown<" + iconId + ">";
     }

@@ -40,8 +40,8 @@ public final class CollectionUtils {
      * @param end Last index exclusive to be converted.
      * @throws IllegalArgumentException if start or end are out of range or start &gt; end.
      */
-    @Nonnull
-    public static <E> ArrayList<E> arrayAsList(@Nonnull final E[] array, final int start,
+
+    public static <E> ArrayList<E> arrayAsList( final E[] array, final int start,
             final int end) {
         if (start < 0 || start > end || end > array.length) {
             throw new IllegalArgumentException("Invalid start: " + start + " end: " + end

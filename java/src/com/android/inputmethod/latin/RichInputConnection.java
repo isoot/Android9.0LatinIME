@@ -20,6 +20,7 @@ import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
@@ -34,8 +35,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.android.inputmethod.compat.InputConnectionCompatUtils;
 import com.android.inputmethod.latin.common.Constants;
-import com.android.inputmethod.latin.common.UnicodeSurrogate;
 import com.android.inputmethod.latin.common.StringUtils;
+import com.android.inputmethod.latin.common.UnicodeSurrogate;
 import com.android.inputmethod.latin.inputlogic.PrivateCommandPerformer;
 import com.android.inputmethod.latin.settings.SpacingAndPunctuations;
 import com.android.inputmethod.latin.utils.CapsModeUtils;
@@ -48,12 +49,10 @@ import com.android.inputmethod.latin.utils.TextRange;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Enrichment class for InputConnection to simplify interaction and add functionality.
- *
+ * <p>
  * This class serves as a wrapper to be able to simply add hooks to any calls to the underlying
  * InputConnection. It also keeps track of a number of things to avoid having to call upon IPC
  * all the time to find out what text is in the buffer, when we need it to determine caps mode
@@ -83,7 +82,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     private static final int OPERATION_GET_TEXT_AFTER_CURSOR = 1;
     private static final int OPERATION_GET_WORD_RANGE_AT_CURSOR = 2;
     private static final int OPERATION_RELOAD_TEXT_CACHE = 3;
-    private static final String[] OPERATION_NAMES = new String[] {
+    private static final String[] OPERATION_NAMES = new String[]{
             "GET_TEXT_BEFORE_CURSOR",
             "GET_TEXT_AFTER_CURSOR",
             "GET_WORD_RANGE_AT_CURSOR",
@@ -120,7 +119,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     private final StringBuilder mComposingText = new StringBuilder();
 
     /**
-     * This variable is a temporary object used in {@link #commitText(CharSequence,int)}
+     * This variable is a temporary object used in {@link #commitText(CharSequence, int)}
      * to avoid object creation.
      */
     private SpannableStringBuilder mTempObjectForCommitText = new SpannableStringBuilder();
@@ -150,7 +149,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      */
     public boolean hasSlowInputConnection() {
         return (SystemClock.uptimeMillis() - mLastSlowInputConnectionTime)
-                        <= SLOW_INPUTCONNECTION_PERSIST_MS;
+                <= SLOW_INPUTCONNECTION_PERSIST_MS;
     }
 
     public void onStartInput() {
@@ -175,14 +174,14 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         }
         final String reference = (beforeCursor.length() <= actualLength) ? beforeCursor.toString()
                 : beforeCursor.subSequence(beforeCursor.length() - actualLength,
-                        beforeCursor.length()).toString();
+                beforeCursor.length()).toString();
         if (et.selectionStart != mExpectedSelStart
                 || !(reference.equals(internal.toString()))) {
             final String context = "Expected selection start = " + mExpectedSelStart
                     + "\nActual selection start = " + et.selectionStart
                     + "\nExpected text = " + internal.length() + " " + internal
                     + "\nActual text = " + reference.length() + " " + reference;
-            ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+            ((LatinIME) mParent).debugDumpStateAndCrashWithException(context);
         } else {
             Log.e(TAG, DebugLogUtils.getStackTrace(2));
             Log.e(TAG, "Exp <> Actual : " + mExpectedSelStart + " <> " + et.selectionStart);
@@ -215,22 +214,22 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Reset the cached text and retrieve it again from the editor.
-     *
+     * <p>
      * This should be called when the cursor moved. It's possible that we can't connect to
      * the application when doing this; notably, this happens sometimes during rotation, probably
      * because of a race condition in the framework. In this case, we just can't retrieve the
      * data, so we empty the cache and note that we don't know the new cursor position, and we
      * return false so that the caller knows about this and can retry later.
      *
-     * @param newSelStart the new position of the selection start, as received from the system.
-     * @param newSelEnd the new position of the selection end, as received from the system.
+     * @param newSelStart             the new position of the selection start, as received from the system.
+     * @param newSelEnd               the new position of the selection end, as received from the system.
      * @param shouldFinishComposition whether we should finish the composition in progress.
      * @return true if we were able to connect to the editor successfully, false otherwise. When
-     *   this method returns false, the caches could not be correctly refreshed so they were only
-     *   reset: the caller should try again later to return to normal operation.
+     * this method returns false, the caches could not be correctly refreshed so they were only
+     * reset: the caller should try again later to return to normal operation.
      */
     public boolean resetCachesUponCursorMoveAndReturnSuccess(final int newSelStart,
-            final int newSelEnd, final boolean shouldFinishComposition) {
+                                                             final int newSelEnd, final boolean shouldFinishComposition) {
         mExpectedSelStart = newSelStart;
         mExpectedSelEnd = newSelEnd;
         mComposingText.setLength(0);
@@ -296,7 +295,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     /**
      * Calls {@link InputConnection#commitText(CharSequence, int)}.
      *
-     * @param text The text to commit. This may include styles.
+     * @param text              The text to commit. This may include styles.
      * @param newCursorPosition The new cursor position around the text.
      */
     public void commitText(final CharSequence text, final int newCursorPosition) {
@@ -337,7 +336,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     @Nullable
     public CharSequence getSelectedText(final int flags) {
-        return isConnected() ?  mIC.getSelectedText(flags) : null;
+        return isConnected() ? mIC.getSelectedText(flags) : null;
     }
 
     public boolean canDeleteCharacters() {
@@ -346,7 +345,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Gets the caps modes we should be in after this specific string.
-     *
+     * <p>
      * This returns a bit set of TextUtils#CAP_MODE_*, masked by the inputType argument.
      * This method also supports faking an additional space after the string passed in argument,
      * to support cases where a space will be added automatically, like in phantom space
@@ -354,13 +353,13 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      * Note that for English, we are using American typography rules (which are not specific to
      * American English, it's just the most common set of rules for English).
      *
-     * @param inputType a mask of the caps modes to test for.
+     * @param inputType              a mask of the caps modes to test for.
      * @param spacingAndPunctuations the values of the settings to use for locale and separators.
-     * @param hasSpaceBefore if we should consider there should be a space after the string.
+     * @param hasSpaceBefore         if we should consider there should be a space after the string.
      * @return the caps modes that should be on as a set of bits
      */
     public int getCursorCapsMode(final int inputType,
-            final SpacingAndPunctuations spacingAndPunctuations, final boolean hasSpaceBefore) {
+                                 final SpacingAndPunctuations spacingAndPunctuations, final boolean hasSpaceBefore) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return Constants.TextUtils.CAP_MODE_OFF;
@@ -518,40 +517,40 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             // sending the key events for only Enter and Backspace because some applications
             // mistakenly catch them to do some stuff.
             switch (keyEvent.getKeyCode()) {
-            case KeyEvent.KEYCODE_ENTER:
-                mCommittedTextBeforeComposingText.append("\n");
-                mExpectedSelStart += 1;
-                mExpectedSelEnd = mExpectedSelStart;
-                break;
-            case KeyEvent.KEYCODE_DEL:
-                if (0 == mComposingText.length()) {
-                    if (mCommittedTextBeforeComposingText.length() > 0) {
-                        mCommittedTextBeforeComposingText.delete(
-                                mCommittedTextBeforeComposingText.length() - 1,
-                                mCommittedTextBeforeComposingText.length());
-                    }
-                } else {
-                    mComposingText.delete(mComposingText.length() - 1, mComposingText.length());
-                }
-                if (mExpectedSelStart > 0 && mExpectedSelStart == mExpectedSelEnd) {
-                    // TODO: Handle surrogate pairs.
-                    mExpectedSelStart -= 1;
-                }
-                mExpectedSelEnd = mExpectedSelStart;
-                break;
-            case KeyEvent.KEYCODE_UNKNOWN:
-                if (null != keyEvent.getCharacters()) {
-                    mCommittedTextBeforeComposingText.append(keyEvent.getCharacters());
-                    mExpectedSelStart += keyEvent.getCharacters().length();
+                case KeyEvent.KEYCODE_ENTER:
+                    mCommittedTextBeforeComposingText.append("\n");
+                    mExpectedSelStart += 1;
                     mExpectedSelEnd = mExpectedSelStart;
-                }
-                break;
-            default:
-                final String text = StringUtils.newSingleCodePointString(keyEvent.getUnicodeChar());
-                mCommittedTextBeforeComposingText.append(text);
-                mExpectedSelStart += text.length();
-                mExpectedSelEnd = mExpectedSelStart;
-                break;
+                    break;
+                case KeyEvent.KEYCODE_DEL:
+                    if (0 == mComposingText.length()) {
+                        if (mCommittedTextBeforeComposingText.length() > 0) {
+                            mCommittedTextBeforeComposingText.delete(
+                                    mCommittedTextBeforeComposingText.length() - 1,
+                                    mCommittedTextBeforeComposingText.length());
+                        }
+                    } else {
+                        mComposingText.delete(mComposingText.length() - 1, mComposingText.length());
+                    }
+                    if (mExpectedSelStart > 0 && mExpectedSelStart == mExpectedSelEnd) {
+                        // TODO: Handle surrogate pairs.
+                        mExpectedSelStart -= 1;
+                    }
+                    mExpectedSelEnd = mExpectedSelStart;
+                    break;
+                case KeyEvent.KEYCODE_UNKNOWN:
+                    if (null != keyEvent.getCharacters()) {
+                        mCommittedTextBeforeComposingText.append(keyEvent.getCharacters());
+                        mExpectedSelStart += keyEvent.getCharacters().length();
+                        mExpectedSelEnd = mExpectedSelStart;
+                    }
+                    break;
+                default:
+                    final String text = StringUtils.newSingleCodePointString(keyEvent.getUnicodeChar());
+                    mCommittedTextBeforeComposingText.append(text);
+                    mExpectedSelStart += text.length();
+                    mExpectedSelEnd = mExpectedSelStart;
+                    break;
             }
         }
         if (isConnected()) {
@@ -592,6 +591,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         // TODO: support values of newCursorPosition != 1. At this time, this is never called with
         // newCursorPosition != 1.
         if (isConnected()) {
+            Log.i(TAG, "setComposingText: text 开始输出:" + text);
             mIC.setComposingText(text, newCursorPosition);
         }
         if (DEBUG_PREVIOUS_TEXT) checkConsistencyForDebug();
@@ -599,11 +599,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Set the selection of the text editor.
-     *
+     * <p>
      * Calls through to {@link InputConnection#setSelection(int, int)}.
      *
      * @param start the character index where the selection should start.
-     * @param end the character index where the selection should end.
+     * @param end   the character index where the selection should end.
      * @return Returns true on success, false on failure: either the input connection is no longer
      * valid when setting the selection or when retrieving the text cache at that point, or
      * invalid arguments were passed.
@@ -653,7 +653,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     @SuppressWarnings("unused")
-    @Nonnull
+
     public NgramContext getNgramContextFromNthPreviousWord(
             final SpacingAndPunctuations spacingAndPunctuations, final int n) {
         mIC = mParent.getCurrentInputConnection();
@@ -675,7 +675,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
                 if (!(reference.equals(internal.toString()))) {
                     final String context =
                             "Expected text = " + internal + "\nActual text = " + reference;
-                    ((LatinIME)mParent).debugDumpStateAndCrashWithException(context);
+                    ((LatinIME) mParent).debugDumpStateAndCrashWithException(context);
                 }
             }
         }
@@ -684,23 +684,23 @@ public final class RichInputConnection implements PrivateCommandPerformer {
     }
 
     private static boolean isPartOfCompositionForScript(final int codePoint,
-            final SpacingAndPunctuations spacingAndPunctuations, final int scriptId) {
+                                                        final SpacingAndPunctuations spacingAndPunctuations, final int scriptId) {
         // We always consider word connectors part of compositions.
         return spacingAndPunctuations.isWordConnector(codePoint)
                 // Otherwise, it's part of composition if it's part of script and not a separator.
                 || (!spacingAndPunctuations.isWordSeparator(codePoint)
-                        && ScriptUtils.isLetterPartOfScript(codePoint, scriptId));
+                && ScriptUtils.isLetterPartOfScript(codePoint, scriptId));
     }
 
     /**
      * Returns the text surrounding the cursor.
      *
      * @param spacingAndPunctuations the rules for spacing and punctuation
-     * @param scriptId the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
+     * @param scriptId               the script we consider to be writing words, as one of ScriptUtils.SCRIPT_*
      * @return a range containing the text surrounding the cursor
      */
     public TextRange getWordRangeAtCursor(final SpacingAndPunctuations spacingAndPunctuations,
-            final int scriptId) {
+                                          final int scriptId) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return null;
@@ -746,18 +746,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
         final boolean hasUrlSpans =
                 SpannableStringUtils.hasUrlSpans(before, startIndexInBefore, before.length())
-                || SpannableStringUtils.hasUrlSpans(after, 0, endIndexInAfter);
+                        || SpannableStringUtils.hasUrlSpans(after, 0, endIndexInAfter);
         // We don't use TextUtils#concat because it copies all spans without respect to their
         // nature. If the text includes a PARAGRAPH span and it has been split, then
         // TextUtils#concat will crash when it tries to concat both sides of it.
         return new TextRange(
                 SpannableStringUtils.concatWithNonParagraphSuggestionSpansOnly(before, after),
-                        startIndexInBefore, before.length() + endIndexInAfter, before.length(),
-                        hasUrlSpans);
+                startIndexInBefore, before.length() + endIndexInAfter, before.length(),
+                hasUrlSpans);
     }
 
     public boolean isCursorTouchingWord(final SpacingAndPunctuations spacingAndPunctuations,
-            boolean checkTextAfter) {
+                                        boolean checkTextAfter) {
         if (checkTextAfter && isCursorFollowedByWordCharacter(spacingAndPunctuations)) {
             // If what's after the cursor is a word character, then we're touching a word.
             return true;
@@ -851,7 +851,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Heuristic to determine if this is an expected update of the cursor.
-     *
+     * <p>
      * Sometimes updates to the cursor position are late because of their asynchronous nature.
      * This method tries to determine if this update is one, based on the values of the cursor
      * position in the update, and the currently expected position of the cursor according to
@@ -865,12 +865,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
      *
      * @param oldSelStart The value of the old selection in the update.
      * @param newSelStart The value of the new selection in the update.
-     * @param oldSelEnd The value of the old selection end in the update.
-     * @param newSelEnd The value of the new selection end in the update.
+     * @param oldSelEnd   The value of the old selection end in the update.
+     * @param newSelEnd   The value of the new selection end in the update.
      * @return whether this is a belated expected update or not.
      */
     public boolean isBelatedExpectedUpdate(final int oldSelStart, final int newSelStart,
-            final int oldSelEnd, final int newSelEnd) {
+                                           final int oldSelEnd, final int newSelEnd) {
         // This update is "belated" if we are expecting it. That is, mExpectedSelStart and
         // mExpectedSelEnd match the new values that the TextView is updating TO.
         if (mExpectedSelStart == newSelStart && mExpectedSelEnd == newSelEnd) return true;
@@ -891,7 +891,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Looks at the text just before the cursor to find out if it looks like a URL.
-     *
+     * <p>
      * The weakest point here is, if we don't have enough text bufferized, we may fail to realize
      * we are in URL situation, but other places in this class have the same limitation and it
      * does not matter too much in the practice.
@@ -902,7 +902,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Looks at the text just before the cursor to find out if we are inside a double quote.
-     *
+     * <p>
      * As with #textBeforeCursorLooksLikeURL, this is dependent on how much text we have cached.
      * However this won't be a concrete problem in most situations, as the cache is almost always
      * long enough for this use.
@@ -944,7 +944,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
             final int textLength = textBeforeCursor.length();
             if (textLength < Constants.EDITOR_CONTENTS_CACHE_SIZE
                     && (textLength > mExpectedSelStart
-                            ||  mExpectedSelStart < Constants.EDITOR_CONTENTS_CACHE_SIZE)) {
+                    || mExpectedSelStart < Constants.EDITOR_CONTENTS_CACHE_SIZE)) {
                 // It should not be possible to have only one of those variables be
                 // NOT_A_CURSOR_POSITION, so if they are equal, either the selection is zero-sized
                 // (simple cursor, no selection) or there is no cursor/we don't know its pos
@@ -991,12 +991,12 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Work around a bug that was present before Jelly Bean upon rotation.
-     *
+     * <p>
      * Before Jelly Bean, there is a bug where setComposingRegion and other committing
      * functions on the input connection get ignored until the cursor moves. This method works
      * around the bug by wiggling the cursor first, which reactivates the connection and has
      * the subsequent methods work, then restoring it to its original position.
-     *
+     * <p>
      * On platforms on which this method is not present, this is a no-op.
      */
     public void maybeMoveTheCursorAroundAndRestoreToWorkaroundABug() {
@@ -1012,17 +1012,18 @@ public final class RichInputConnection implements PrivateCommandPerformer {
 
     /**
      * Requests the editor to call back {@link InputMethodManager#updateCursorAnchorInfo}.
-     * @param enableMonitor {@code true} to request the editor to call back the method whenever the
-     * cursor/anchor position is changed.
+     *
+     * @param enableMonitor            {@code true} to request the editor to call back the method whenever the
+     *                                 cursor/anchor position is changed.
      * @param requestImmediateCallback {@code true} to request the editor to call back the method
-     * as soon as possible to notify the current cursor/anchor position to the input method.
+     *                                 as soon as possible to notify the current cursor/anchor position to the input method.
      * @return {@code true} if the request is accepted. Returns {@code false} otherwise, which
      * includes "not implemented" or "rejected" or "temporarily unavailable" or whatever which
      * prevents the application from fulfilling the request. (TODO: Improve the API when it turns
      * out that we actually need more detailed error codes)
      */
     public boolean requestCursorUpdates(final boolean enableMonitor,
-            final boolean requestImmediateCallback) {
+                                        final boolean requestImmediateCallback) {
         mIC = mParent.getCurrentInputConnection();
         if (!isConnected()) {
             return false;

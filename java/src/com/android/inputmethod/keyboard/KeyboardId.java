@@ -103,7 +103,7 @@ public final class KeyboardId {
     }
 
     private static int computeHashCode(final KeyboardId id) {
-        return Arrays.hashCode(new Object[] {
+        return Arrays.hashCode(new Object[]{
                 id.mElementId,
                 id.mMode,
                 id.mWidth,
@@ -218,49 +218,87 @@ public final class KeyboardId {
 
     public static String elementIdToName(final int elementId) {
         switch (elementId) {
-        case ELEMENT_ALPHABET: return "alphabet";
-        case ELEMENT_ALPHABET_MANUAL_SHIFTED: return "alphabetManualShifted";
-        case ELEMENT_ALPHABET_AUTOMATIC_SHIFTED: return "alphabetAutomaticShifted";
-        case ELEMENT_ALPHABET_SHIFT_LOCKED: return "alphabetShiftLocked";
-        case ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED: return "alphabetShiftLockShifted";
-        case ELEMENT_SYMBOLS: return "symbols";
-        case ELEMENT_SYMBOLS_SHIFTED: return "symbolsShifted";
-        case ELEMENT_PHONE: return "phone";
-        case ELEMENT_PHONE_SYMBOLS: return "phoneSymbols";
-        case ELEMENT_NUMBER: return "number";
-        case ELEMENT_EMOJI_RECENTS: return "emojiRecents";
-        case ELEMENT_EMOJI_CATEGORY1: return "emojiCategory1";
-        case ELEMENT_EMOJI_CATEGORY2: return "emojiCategory2";
-        case ELEMENT_EMOJI_CATEGORY3: return "emojiCategory3";
-        case ELEMENT_EMOJI_CATEGORY4: return "emojiCategory4";
-        case ELEMENT_EMOJI_CATEGORY5: return "emojiCategory5";
-        case ELEMENT_EMOJI_CATEGORY6: return "emojiCategory6";
-        case ELEMENT_EMOJI_CATEGORY7: return "emojiCategory7";
-        case ELEMENT_EMOJI_CATEGORY8: return "emojiCategory8";
-        case ELEMENT_EMOJI_CATEGORY9: return "emojiCategory9";
-        case ELEMENT_EMOJI_CATEGORY10: return "emojiCategory10";
-        case ELEMENT_EMOJI_CATEGORY11: return "emojiCategory11";
-        case ELEMENT_EMOJI_CATEGORY12: return "emojiCategory12";
-        case ELEMENT_EMOJI_CATEGORY13: return "emojiCategory13";
-        case ELEMENT_EMOJI_CATEGORY14: return "emojiCategory14";
-        case ELEMENT_EMOJI_CATEGORY15: return "emojiCategory15";
-        case ELEMENT_EMOJI_CATEGORY16: return "emojiCategory16";
-        default: return null;
+            case ELEMENT_ALPHABET:
+                return "alphabet";
+            case ELEMENT_ALPHABET_MANUAL_SHIFTED:
+                return "alphabetManualShifted";
+            case ELEMENT_ALPHABET_AUTOMATIC_SHIFTED:
+                return "alphabetAutomaticShifted";
+            case ELEMENT_ALPHABET_SHIFT_LOCKED:
+                return "alphabetShiftLocked";
+            case ELEMENT_ALPHABET_SHIFT_LOCK_SHIFTED:
+                return "alphabetShiftLockShifted";
+            case ELEMENT_SYMBOLS:
+                return "symbols";
+            case ELEMENT_SYMBOLS_SHIFTED:
+                return "symbolsShifted";
+            case ELEMENT_PHONE:
+                return "phone";
+            case ELEMENT_PHONE_SYMBOLS:
+                return "phoneSymbols";
+            case ELEMENT_NUMBER:
+                return "number";
+            case ELEMENT_EMOJI_RECENTS:
+                return "emojiRecents";
+            case ELEMENT_EMOJI_CATEGORY1:
+                return "emojiCategory1";
+            case ELEMENT_EMOJI_CATEGORY2:
+                return "emojiCategory2";
+            case ELEMENT_EMOJI_CATEGORY3:
+                return "emojiCategory3";
+            case ELEMENT_EMOJI_CATEGORY4:
+                return "emojiCategory4";
+            case ELEMENT_EMOJI_CATEGORY5:
+                return "emojiCategory5";
+            case ELEMENT_EMOJI_CATEGORY6:
+                return "emojiCategory6";
+            case ELEMENT_EMOJI_CATEGORY7:
+                return "emojiCategory7";
+            case ELEMENT_EMOJI_CATEGORY8:
+                return "emojiCategory8";
+            case ELEMENT_EMOJI_CATEGORY9:
+                return "emojiCategory9";
+            case ELEMENT_EMOJI_CATEGORY10:
+                return "emojiCategory10";
+            case ELEMENT_EMOJI_CATEGORY11:
+                return "emojiCategory11";
+            case ELEMENT_EMOJI_CATEGORY12:
+                return "emojiCategory12";
+            case ELEMENT_EMOJI_CATEGORY13:
+                return "emojiCategory13";
+            case ELEMENT_EMOJI_CATEGORY14:
+                return "emojiCategory14";
+            case ELEMENT_EMOJI_CATEGORY15:
+                return "emojiCategory15";
+            case ELEMENT_EMOJI_CATEGORY16:
+                return "emojiCategory16";
+            default:
+                return null;
         }
     }
 
     public static String modeName(final int mode) {
         switch (mode) {
-        case MODE_TEXT: return "text";
-        case MODE_URL: return "url";
-        case MODE_EMAIL: return "email";
-        case MODE_IM: return "im";
-        case MODE_PHONE: return "phone";
-        case MODE_NUMBER: return "number";
-        case MODE_DATE: return "date";
-        case MODE_TIME: return "time";
-        case MODE_DATETIME: return "datetime";
-        default: return null;
+            case MODE_TEXT:
+                return "text";
+            case MODE_URL:
+                return "url";
+            case MODE_EMAIL:
+                return "email";
+            case MODE_IM:
+                return "im";
+            case MODE_PHONE:
+                return "phone";
+            case MODE_NUMBER:
+                return "number";
+            case MODE_DATE:
+                return "date";
+            case MODE_TIME:
+                return "time";
+            case MODE_DATETIME:
+                return "datetime";
+            default:
+                return null;
         }
     }
 

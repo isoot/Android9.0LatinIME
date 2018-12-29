@@ -114,7 +114,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
     // The position and time at which first down event occurred.
     private long mDownTime;
-    @Nonnull
+
     private int[] mDownCoordinates = CoordinateUtils.newInstance();
     private long mUpTime;
 
@@ -457,7 +457,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return mGestureStrokeDrawingPoints;
     }
 
-    public void getLastCoordinates(@Nonnull final int[] outCoords) {
+    public void getLastCoordinates( final int[] outCoords) {
         CoordinateUtils.set(outCoords, mLastX, mLastY);
     }
 
@@ -465,7 +465,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return mDownTime;
     }
 
-    public void getDownCoordinates(@Nonnull final int[] outCoords) {
+    public void getDownCoordinates( final int[] outCoords) {
         CoordinateUtils.copy(outCoords, mDownCoordinates);
     }
 

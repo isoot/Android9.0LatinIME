@@ -101,7 +101,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nonnull;
 
 import static com.android.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
 import static com.android.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
@@ -157,7 +156,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     private SuggestionStripView mSuggestionStripView;
 
     private RichInputMethodManager mRichImm;
-    @UsedForTesting final KeyboardSwitcher mKeyboardSwitcher;
+    @UsedForTesting
+    final KeyboardSwitcher mKeyboardSwitcher;
     private final SubtypeState mSubtypeState = new SubtypeState();
     private EmojiAltPhysicalKeyDetector mEmojiAltPhysicalKeyDetector;
     private StatsUtilsManager mStatsUtilsManager;
@@ -189,6 +189,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             }
         }
     }
+
     final HideSoftInputReceiver mHideSoftInputReceiver = new HideSoftInputReceiver(this);
 
     private AlertDialog mOptionsDialog;
@@ -224,7 +225,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         private int mDelayInMillisecondsToUpdateSuggestions;
         private int mDelayInMillisecondsToUpdateShiftState;
 
-        public UIHandler(@Nonnull final LatinIME ownerInstance) {
+        public UIHandler(final LatinIME ownerInstance) {
             super(ownerInstance);
         }
 
@@ -308,7 +309,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     latinIme.deallocateMemory();
                     break;
                 case MSG_SWITCH_LANGUAGE_AUTOMATICALLY:
-                    latinIme.switchLanguage((InputMethodSubtype)msg.obj);
+                    latinIme.switchLanguage((InputMethodSubtype) msg.obj);
                     break;
             }
         }
@@ -795,7 +796,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mInputView = view;
         mInsetsUpdater = ViewOutlineProviderCompatUtils.setInsetsOutlineProvider(view);
         updateSoftInputWindowLayoutParameters();
-        mSuggestionStripView = (SuggestionStripView)view.findViewById(R.id.suggestion_strip_view);
+        mSuggestionStripView = (SuggestionStripView) view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setListener(this, view);
         }
@@ -812,7 +813,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     @Override
-    public void onStartInputView(final EditorInfo editorInfo, final boolean restarting) {
+    public void onStartInputView(EditorInfo editorInfo, final boolean restarting) {
         mHandler.onStartInputView(editorInfo, restarting);
         mStatsUtilsManager.onStartInputView();
     }
@@ -1312,7 +1313,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     /**
      * @param codePoints code points to get coordinates for.
-     * @return x,y coordinates for this keyboard, as a flattened array.
+     * @return x, y coordinates for this keyboard, as a flattened array.
      */
     public int[] getCoordinatesForCurrentKeyboard(final int[] codePoints) {
         final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
@@ -1346,7 +1347,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     @Override
-    public boolean onCustomRequest(final int code,final int requestCode) {
+    public boolean onCustomRequest(final int code, final int requestCode) {
         if (isShowingOptionDialog()) return false;
         switch (requestCode) {
             case Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER:
@@ -1371,7 +1372,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mRichImm.setInputMethodAndSubtype(token, subtype);
     }
 
-    public void showEmoji(int code){
+    public void showEmoji(int code) {
         onCodeInput(code, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE,
                 false /* isKeyRepeat */);
     }
@@ -1419,7 +1420,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
-    public void onEvent(@Nonnull final Event event) {
+    public void onEvent(final Event event) {
         if (Constants.CODE_SHORTCUT == event.mKeyCode) {
             mRichImm.switchToShortcutIme(this);
         }
@@ -1428,7 +1429,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
                         mKeyboardSwitcher.getKeyboardShiftMode(),
-                        mKeyboardSwitcher.getCurrentKeyboardScriptId(), mHandler);
+                        mKeyboardSwitcher.getCurrentKeyboardScriptId(), mHandler, getCurrentInputEditorInfo().inputType);
         updateStateAfterInputTransaction(completeInputTransaction);
 
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
@@ -1437,7 +1438,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // A helper method to split the code point and the key code. Ultimately, they should not be
     // squashed into the same variable, and this method should be removed.
     // public for testing, as we don't want to copy the same logic into test code
-    @Nonnull
+
     public static Event createSoftwareKeypressEvent(final int keyCodeOrCodePoint, final int keyX,
                                                     final int keyY, final boolean isKeyRepeat) {
         final int keyCode;
@@ -1494,6 +1495,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * IME for the full gesture, possibly updating the TextView to reflect the first suggestion.
      * <p>
      * This method must be run on the UI Thread.
+     *
      * @param suggestedWords suggested words by the IME for the full gesture.
      */
     public void onTailBatchInputResultShown(final SuggestedWords suggestedWords) {
@@ -1503,7 +1505,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     // This method must run on the UI Thread.
-    void showGesturePreviewAndSuggestionStrip(@Nonnull final SuggestedWords suggestedWords,
+    void showGesturePreviewAndSuggestionStrip(final SuggestedWords suggestedWords,
                                               final boolean dismissGestureFloatingPreviewText) {
         showSuggestionStrip(suggestedWords);
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
@@ -1650,6 +1652,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * After an input transaction has been executed, some state must be updated. This includes
      * the shift state of the keyboard and suggestions. This method looks at the finished
      * inputTransaction to find out what is necessary and updates the state accordingly.
+     *
      * @param inputTransaction The transaction that has been executed.
      */
     private void updateStateAfterInputTransaction(final InputTransaction inputTransaction) {
@@ -1753,7 +1756,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     mKeyboardSwitcher.getKeyboardShiftMode(),
                     // TODO: this is not necessarily correct for a hardware keyboard right now
                     mKeyboardSwitcher.getCurrentKeyboardScriptId(),
-                    mHandler);
+                    mHandler, getCurrentInputEditorInfo().inputType);
             return true;
         }
         return super.onKeyDown(keyCode, keyEvent);
@@ -1813,7 +1816,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final CharSequence title = getString(R.string.english_ime_input_options);
         // TODO: Should use new string "Select active input modes".
         final CharSequence languageSelectionTitle = getString(R.string.language_selection_title);
-        final CharSequence[] items = new CharSequence[] {
+        final CharSequence[] items = new CharSequence[]{
                 languageSelectionTitle,
                 getString(ApplicationUtils.getActivityTitleResId(this, SettingsActivity.class))
         };

@@ -35,7 +35,7 @@ public interface Combiner {
      * @param event the event to combine with the existing state.
      * @return the resulting event.
      */
-    @Nonnull
+
     Event processEvent(ArrayList<Event> previousEvents, Event event);
 
     /**

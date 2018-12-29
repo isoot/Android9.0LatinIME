@@ -578,7 +578,7 @@ final class SuggestionStripLayoutHelper {
 
     @Nullable
     private static CharSequence getEllipsizedTextWithSettingScaleX(
-            @Nullable final CharSequence text, final int maxWidth, @Nonnull final TextPaint paint) {
+            @Nullable final CharSequence text, final int maxWidth,  final TextPaint paint) {
         if (text == null) {
             return null;
         }
@@ -618,7 +618,7 @@ final class SuggestionStripLayoutHelper {
         return false;
     }
 
-    private static void addStyleSpan(@Nonnull final Spannable text, final CharacterStyle style) {
+    private static void addStyleSpan( final Spannable text, final CharacterStyle style) {
         text.removeSpan(style);
         text.setSpan(style, 0, text.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
     }

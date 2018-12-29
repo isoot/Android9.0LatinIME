@@ -18,7 +18,6 @@ package com.android.inputmethod.keyboard;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -33,7 +32,6 @@ import com.android.inputmethod.keyboard.internal.KeyboardState;
 import com.android.inputmethod.keyboard.internal.KeyboardTextsSet;
 import com.android.inputmethod.latin.InputView;
 import com.android.inputmethod.latin.LatinIME;
-import com.android.inputmethod.tian.R;
 import com.android.inputmethod.latin.RichInputMethodManager;
 import com.android.inputmethod.latin.WordComposer;
 import com.android.inputmethod.latin.define.ProductionFlags;
@@ -44,8 +42,8 @@ import com.android.inputmethod.latin.utils.LanguageOnSpacebarUtils;
 import com.android.inputmethod.latin.utils.RecapitalizeStatus;
 import com.android.inputmethod.latin.utils.ResourceUtils;
 import com.android.inputmethod.latin.utils.ScriptUtils;
+import com.android.inputmethod.tian.R;
 
-import javax.annotation.Nonnull;
 
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private static final String TAG = KeyboardSwitcher.class.getSimpleName();
@@ -148,8 +146,9 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
      * @param toggleState
      */
     private void setKeyboard(
-            @Nonnull final int keyboardId,
-            @Nonnull final KeyboardSwitchState toggleState) {
+             final int keyboardId,
+             final KeyboardSwitchState toggleState) {
+        Log.i(TAG, "setKeyboard: toggleState:"+toggleState.name());
         // Make {@link MainKeyboardView} visible and hide {@link EmojiPalettesView}.
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
         setMainKeyboardFrame(currentSettingsValues, toggleState);
@@ -214,7 +213,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     @Override
     public void setAlphabetKeyboard() {
         if (DEBUG_ACTION) {
-            Log.d(TAG, "setAlphabetKeyboard");
+            Log.d(TAG, "setAlphabetKeyboard ----- ");
         }
         setKeyboard(KeyboardId.ELEMENT_ALPHABET, KeyboardSwitchState.OTHER);
     }
@@ -274,14 +273,14 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public boolean isImeSuppressedByHardwareKeyboard(
-            @Nonnull final SettingsValues settingsValues,
-            @Nonnull final KeyboardSwitchState toggleState) {
+             final SettingsValues settingsValues,
+             final KeyboardSwitchState toggleState) {
         return settingsValues.mHasHardwareKeyboard && toggleState == KeyboardSwitchState.HIDDEN;
     }
 
     private void setMainKeyboardFrame(
-            @Nonnull final SettingsValues settingsValues,
-            @Nonnull final KeyboardSwitchState toggleState) {
+             final SettingsValues settingsValues,
+             final KeyboardSwitchState toggleState) {
         final int visibility =  isImeSuppressedByHardwareKeyboard(settingsValues, toggleState)
                 ? View.GONE : View.VISIBLE;
         mKeyboardView.setVisibility(visibility);
@@ -340,7 +339,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         return KeyboardSwitchState.OTHER;
     }
 
-    public void onToggleKeyboard(@Nonnull final KeyboardSwitchState toggleState) {
+    public void onToggleKeyboard( final KeyboardSwitchState toggleState) {
         KeyboardSwitchState currentState = getKeyboardSwitchState();
         Log.w(TAG, "onToggleKeyboard() : Current = " + currentState + " : Toggle = " + toggleState);
         if (currentState == toggleState) {
@@ -415,7 +414,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mState.onEvent(event, currentAutoCapsState, currentRecapitalizeState);
     }
 
-    public boolean isShowingKeyboardId(@Nonnull int... keyboardIds) {
+    public boolean isShowingKeyboardId( int... keyboardIds) {
         if (mKeyboardView == null || !mKeyboardView.isShown()) {
             return false;
         }
@@ -506,4 +505,5 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         }
         return mKeyboardLayoutSet.getScriptId();
     }
+
 }

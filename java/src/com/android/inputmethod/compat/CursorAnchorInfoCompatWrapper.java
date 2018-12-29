@@ -115,10 +115,10 @@ public class CursorAnchorInfoCompatWrapper {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static final class RealWrapper extends CursorAnchorInfoCompatWrapper {
 
-        @Nonnull
+
         private final CursorAnchorInfo mInstance;
 
-        public RealWrapper(@Nonnull final CursorAnchorInfo info) {
+        public RealWrapper( final CursorAnchorInfo info) {
             mInstance = info;
         }
 

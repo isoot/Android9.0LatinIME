@@ -31,7 +31,6 @@ import com.android.inputmethod.keyboard.KeyboardLayoutSet;
 import com.android.inputmethod.latin.DictionaryFacilitator;
 import com.android.inputmethod.latin.DictionaryFacilitatorLruCache;
 import com.android.inputmethod.latin.NgramContext;
-import com.android.inputmethod.tian.R;
 import com.android.inputmethod.latin.RichInputMethodSubtype;
 import com.android.inputmethod.latin.SuggestedWords;
 import com.android.inputmethod.latin.common.ComposedData;
@@ -39,13 +38,13 @@ import com.android.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import com.android.inputmethod.latin.utils.AdditionalSubtypeUtils;
 import com.android.inputmethod.latin.utils.ScriptUtils;
 import com.android.inputmethod.latin.utils.SuggestionResults;
+import com.android.inputmethod.tian.R;
 
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
-import javax.annotation.Nonnull;
 
 /**
  * Service for spell checking, using LatinIME's dictionaries and mechanisms.
@@ -170,7 +169,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
 
     public SuggestionResults getSuggestionResults(final Locale locale,
             final ComposedData composedData, final NgramContext ngramContext,
-            @Nonnull final Keyboard keyboard) {
+             final Keyboard keyboard) {
         Integer sessionId = null;
         mSemaphore.acquireUninterruptibly();
         try {

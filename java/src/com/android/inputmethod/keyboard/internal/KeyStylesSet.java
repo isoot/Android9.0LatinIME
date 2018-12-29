@@ -36,24 +36,24 @@ public final class KeyStylesSet {
     private static final String TAG = KeyStylesSet.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    @Nonnull
+
     private final HashMap<String, KeyStyle> mStyles = new HashMap<>();
 
-    @Nonnull
+
     private final KeyboardTextsSet mTextsSet;
-    @Nonnull
+
     private final KeyStyle mEmptyKeyStyle;
-    @Nonnull
+
     private static final String EMPTY_STYLE_NAME = "<empty>";
 
-    public KeyStylesSet(@Nonnull final KeyboardTextsSet textsSet) {
+    public KeyStylesSet( final KeyboardTextsSet textsSet) {
         mTextsSet = textsSet;
         mEmptyKeyStyle = new EmptyKeyStyle(textsSet);
         mStyles.put(EMPTY_STYLE_NAME, mEmptyKeyStyle);
     }
 
     private static final class EmptyKeyStyle extends KeyStyle {
-        EmptyKeyStyle(@Nonnull final KeyboardTextsSet textsSet) {
+        EmptyKeyStyle( final KeyboardTextsSet textsSet) {
             super(textsSet);
         }
 
@@ -85,9 +85,9 @@ public final class KeyStylesSet {
         private final String mParentStyleName;
         private final SparseArray<Object> mStyleAttributes = new SparseArray<>();
 
-        public DeclaredKeyStyle(@Nonnull final String parentStyleName,
-                @Nonnull final KeyboardTextsSet textsSet,
-                @Nonnull final HashMap<String, KeyStyle> styles) {
+        public DeclaredKeyStyle( final String parentStyleName,
+                 final KeyboardTextsSet textsSet,
+                 final HashMap<String, KeyStyle> styles) {
             super(textsSet);
             mParentStyleName = parentStyleName;
             mStyles = styles;
@@ -214,7 +214,7 @@ public final class KeyStylesSet {
         mStyles.put(styleName, style);
     }
 
-    @Nonnull
+
     public KeyStyle getKeyStyle(final TypedArray keyAttr, final XmlPullParser parser)
             throws XmlParseUtils.ParseException {
         final String styleName = keyAttr.getString(R.styleable.Keyboard_Key_keyStyle);

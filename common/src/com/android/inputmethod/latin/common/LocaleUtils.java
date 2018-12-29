@@ -168,8 +168,8 @@ public final class LocaleUtils {
      * @param localeString a string specification of a locale, in a format of "ll_cc_variant" where
      * "ll" is a language code, "cc" is a country code.
      */
-    @Nonnull
-    public static Locale constructLocaleFromString(@Nonnull final String localeString) {
+
+    public static Locale constructLocaleFromString( final String localeString) {
         synchronized (sLocaleCache) {
             if (sLocaleCache.containsKey(localeString)) {
                 return sLocaleCache.get(localeString);
@@ -204,7 +204,7 @@ public final class LocaleUtils {
         sRtlLanguageCodes.add("yi"); // Yiddish
     }
 
-    public static boolean isRtlLanguage(@Nonnull final Locale locale) {
+    public static boolean isRtlLanguage( final Locale locale) {
         return sRtlLanguageCodes.contains(locale.getLanguage());
     }
 }

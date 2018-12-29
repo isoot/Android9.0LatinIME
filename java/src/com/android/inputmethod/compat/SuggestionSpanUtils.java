@@ -58,7 +58,7 @@ public final class SuggestionSpanUtils {
 
     @UsedForTesting
     public static CharSequence getTextWithAutoCorrectionIndicatorUnderline(
-            final Context context, final String text, @Nonnull final Locale locale) {
+            final Context context, final String text,  final Locale locale) {
         if (TextUtils.isEmpty(text) || OBJ_FLAG_AUTO_CORRECTION == null) {
             return text;
         }

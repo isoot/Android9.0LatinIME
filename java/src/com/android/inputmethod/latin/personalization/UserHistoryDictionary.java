@@ -97,7 +97,7 @@ public class UserHistoryDictionary extends ExpandableBinaryDictionary {
      * @param timestamp the timestamp when the word has been inputted
      */
     public static void addToDictionary(final ExpandableBinaryDictionary userHistoryDictionary,
-            @Nonnull final NgramContext ngramContext, final String word, final boolean isValid,
+             final NgramContext ngramContext, final String word, final boolean isValid,
             final int timestamp) {
         if (word.length() > BinaryDictionary.DICTIONARY_MAX_WORD_LENGTH) {
             return;

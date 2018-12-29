@@ -57,7 +57,7 @@ final class EmojiAltPhysicalKeyDetector {
             mCanFire = false;
         }
 
-        public void onKeyDown(@Nonnull final KeyEvent keyEvent) {
+        public void onKeyDown( final KeyEvent keyEvent) {
             if (DEBUG) {
                 Log.d(TAG, "EmojiHotKeys.onKeyDown() - " + mName + " - considering " + keyEvent);
             }
@@ -78,7 +78,7 @@ final class EmojiAltPhysicalKeyDetector {
             }
         }
 
-        public void onKeyUp(@Nonnull final KeyEvent keyEvent) {
+        public void onKeyUp( final KeyEvent keyEvent) {
             if (DEBUG) {
                 Log.d(TAG, "EmojiHotKeys.onKeyUp() - " + mName + " - considering " + keyEvent);
             }
@@ -122,7 +122,7 @@ final class EmojiAltPhysicalKeyDetector {
         protected abstract void action();
     }
 
-    public EmojiAltPhysicalKeyDetector(@Nonnull final Resources resources) {
+    public EmojiAltPhysicalKeyDetector( final Resources resources) {
         mHotKeysList = new ArrayList<EmojiHotKeys>();
 
         final HotKeySet emojiSwitchSet = parseHotKeys(
@@ -148,7 +148,7 @@ final class EmojiAltPhysicalKeyDetector {
         mHotKeysList.add(symbolsHotKeys);
     }
 
-    public void onKeyDown(@Nonnull final KeyEvent keyEvent) {
+    public void onKeyDown( final KeyEvent keyEvent) {
         if (DEBUG) {
             Log.d(TAG, "onKeyDown(): " + keyEvent);
         }
@@ -160,7 +160,7 @@ final class EmojiAltPhysicalKeyDetector {
         }
     }
 
-    public void onKeyUp(@Nonnull final KeyEvent keyEvent) {
+    public void onKeyUp( final KeyEvent keyEvent) {
         if (DEBUG) {
             Log.d(TAG, "onKeyUp(): " + keyEvent);
         }
@@ -172,7 +172,7 @@ final class EmojiAltPhysicalKeyDetector {
         }
     }
 
-    private static boolean shouldProcessEvent(@Nonnull final KeyEvent keyEvent) {
+    private static boolean shouldProcessEvent( final KeyEvent keyEvent) {
         if (!Settings.getInstance().getCurrent().mEnableEmojiAltPhysicalKey) {
             // The feature is disabled.
             if (DEBUG) {
@@ -185,7 +185,7 @@ final class EmojiAltPhysicalKeyDetector {
     }
 
     private static HotKeySet parseHotKeys(
-            @Nonnull final Resources resources, final int resourceId) {
+             final Resources resources, final int resourceId) {
         final HotKeySet keySet = new HotKeySet();
         final String name = resources.getResourceEntryName(resourceId);
         final String[] values = resources.getStringArray(resourceId);

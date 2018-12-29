@@ -34,8 +34,8 @@ public class DictionaryStats {
     public final int mWordCount;
 
     public DictionaryStats(
-            @Nonnull final Locale locale,
-            @Nonnull final String dictType,
+             final Locale locale,
+             final String dictType,
             @Nullable final String dictFileName,
             @Nullable final File dictFile,
             final int contentVersion) {
@@ -48,8 +48,8 @@ public class DictionaryStats {
     }
 
     public DictionaryStats(
-            @Nonnull final Locale locale,
-            @Nonnull final String dictType,
+             final Locale locale,
+             final String dictType,
             final int wordCount) {
         mLocale = locale;
         mDictType = dictType;

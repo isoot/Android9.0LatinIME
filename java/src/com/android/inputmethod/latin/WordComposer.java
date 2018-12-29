@@ -157,8 +157,8 @@ public final class WordComposer {
      * @param event the unprocessed event.
      * @return the processed event. Never null, but may be marked as consumed.
      */
-    @Nonnull
-    public Event processEvent(@Nonnull final Event event) {
+
+    public Event processEvent( final Event event) {
         final Event processedEvent = mCombinerChain.processEvent(mEvents, event);
         // The retained state of the combiner chain may have changed while processing the event,
         // so we need to update our cache.

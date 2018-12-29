@@ -16,14 +16,13 @@
 
 package com.android.inputmethod.keyboard;
 
-import static com.android.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
-import static com.android.inputmethod.latin.common.Constants.ImeOption.NO_SETTINGS_KEY;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.Xml;
@@ -37,13 +36,13 @@ import com.android.inputmethod.keyboard.internal.KeyboardBuilder;
 import com.android.inputmethod.keyboard.internal.KeyboardParams;
 import com.android.inputmethod.keyboard.internal.UniqueKeysCache;
 import com.android.inputmethod.latin.InputAttributes;
-import com.android.inputmethod.tian.R;
 import com.android.inputmethod.latin.RichInputMethodSubtype;
-import com.android.inputmethod.latin.define.DebugFlags;
+import com.android.inputmethod.latin.common.Constants;
 import com.android.inputmethod.latin.utils.InputTypeUtils;
 import com.android.inputmethod.latin.utils.ScriptUtils;
 import com.android.inputmethod.latin.utils.SubtypeLocaleUtils;
 import com.android.inputmethod.latin.utils.XmlParseUtils;
+import com.android.inputmethod.tian.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -51,9 +50,11 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
+import java.util.Objects;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import static com.android.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
+import static com.android.inputmethod.latin.common.Constants.ImeOption.NO_SETTINGS_KEY;
+
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard
@@ -73,7 +74,7 @@ public final class KeyboardLayoutSet {
     private static final String KEYBOARD_LAYOUT_SET_RESOURCE_PREFIX = "keyboard_layout_set_";
 
     private final Context mContext;
-    @Nonnull
+
     private final Params mParams;
 
     // How many layouts we forcibly keep in cache. This only includes ALPHABET (default) and
@@ -86,7 +87,7 @@ public final class KeyboardLayoutSet {
     private static final Keyboard[] sForcibleKeyboardCache = new Keyboard[FORCIBLE_CACHE_SIZE];
     private static final HashMap<KeyboardId, SoftReference<Keyboard>> sKeyboardCache =
             new HashMap<>();
-    @Nonnull
+
     private static final UniqueKeysCache sUniqueKeysCache = UniqueKeysCache.newInstance();
     private final static HashMap<InputMethodSubtype, Integer> sScriptIdsForSubtypes =
             new HashMap<>();
@@ -106,8 +107,11 @@ public final class KeyboardLayoutSet {
         boolean mProximityCharsCorrectionEnabled;
         boolean mSupportsSplitLayout;
         boolean mAllowRedundantMoreKeys;
-        public ElementParams() {}
+
+        public ElementParams() {
+        }
     }
+
 
     public static final class Params {
         String mKeyboardLayoutSetName;
@@ -149,7 +153,7 @@ public final class KeyboardLayoutSet {
     }
 
     public static int getScriptId(final Resources resources,
-            @Nonnull final InputMethodSubtype subtype) {
+                                  final InputMethodSubtype subtype) {
         final Integer value = sScriptIdsForSubtypes.get(subtype);
         if (null == value) {
             final int scriptId = Builder.readScriptId(resources, subtype);
@@ -159,31 +163,31 @@ public final class KeyboardLayoutSet {
         return value;
     }
 
-    KeyboardLayoutSet(final Context context, @Nonnull final Params params) {
+    KeyboardLayoutSet(final Context context, final Params params) {
         mContext = context;
         mParams = params;
     }
 
-    @Nonnull
+
     public Keyboard getKeyboard(final int baseKeyboardLayoutSetElementId) {
         final int keyboardLayoutSetElementId;
         switch (mParams.mMode) {
-        case KeyboardId.MODE_PHONE:
-            if (baseKeyboardLayoutSetElementId == KeyboardId.ELEMENT_SYMBOLS) {
-                keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE_SYMBOLS;
-            } else {
-                keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE;
-            }
-            break;
-        case KeyboardId.MODE_NUMBER:
-        case KeyboardId.MODE_DATE:
-        case KeyboardId.MODE_TIME:
-        case KeyboardId.MODE_DATETIME:
-            keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMBER;
-            break;
-        default:
-            keyboardLayoutSetElementId = baseKeyboardLayoutSetElementId;
-            break;
+            case KeyboardId.MODE_PHONE:
+                if (baseKeyboardLayoutSetElementId == KeyboardId.ELEMENT_SYMBOLS) {
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE_SYMBOLS;
+                } else {
+                    keyboardLayoutSetElementId = KeyboardId.ELEMENT_PHONE;
+                }
+                break;
+            case KeyboardId.MODE_NUMBER:
+            case KeyboardId.MODE_DATE:
+            case KeyboardId.MODE_TIME:
+            case KeyboardId.MODE_DATETIME:
+                keyboardLayoutSetElementId = KeyboardId.ELEMENT_NUMBER;
+                break;
+            default:
+                keyboardLayoutSetElementId = baseKeyboardLayoutSetElementId;
+                break;
         }
 
         ElementParams elementParams = mParams.mKeyboardLayoutSetElementIdToParamsMap.get(
@@ -208,7 +212,7 @@ public final class KeyboardLayoutSet {
         }
     }
 
-    @Nonnull
+
     private Keyboard getKeyboard(final ElementParams elementParams, final KeyboardId id) {
         final SoftReference<Keyboard> ref = sKeyboardCache.get(id);
         final Keyboard cachedKeyboard = (ref == null) ? null : ref.get();
@@ -281,8 +285,7 @@ public final class KeyboardLayoutSet {
             // be locked down.
             // TODO: Switch to {@code UserManagerCompat.isUserUnlocked()} in the support-v4 library
             // when it becomes publicly available.
-            @UserManagerCompatUtils.LockState
-            final int lockState = UserManagerCompatUtils.getUserLockState(context);
+            @UserManagerCompatUtils.LockState final int lockState = UserManagerCompatUtils.getUserLockState(context);
             if (lockState == UserManagerCompatUtils.LOCK_STATE_LOCKED) {
                 params.mNoSettingsKey = true;
             }
@@ -294,11 +297,10 @@ public final class KeyboardLayoutSet {
             return this;
         }
 
-        public Builder setSubtype(@Nonnull final RichInputMethodSubtype subtype) {
+        public Builder setSubtype(final RichInputMethodSubtype subtype) {
             final boolean asciiCapable = InputMethodSubtypeCompatUtils.isAsciiCapable(subtype);
             // TODO: Consolidate with {@link InputAttributes}.
-            @SuppressWarnings("deprecation")
-            final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
+            @SuppressWarnings("deprecation") final boolean deprecatedForceAscii = InputAttributes.inPrivateImeOptions(
                     mPackageName, FORCE_ASCII, mParams.mEditorInfo);
             final boolean forceAscii = EditorInfoCompatUtils.hasFlagForceAscii(
                     mParams.mEditorInfo.imeOptions)
@@ -363,7 +365,7 @@ public final class KeyboardLayoutSet {
         }
 
         private static int readScriptIdFromTagFeature(final Resources resources,
-                final XmlPullParser parser) throws IOException, XmlPullParserException {
+                                                      final XmlPullParser parser) throws IOException, XmlPullParserException {
             final TypedArray featureAttr = resources.obtainAttributes(Xml.asAttributeSet(parser),
                     R.styleable.KeyboardLayoutSet_Feature);
             try {
@@ -475,33 +477,33 @@ public final class KeyboardLayoutSet {
             final int variation = inputType & InputType.TYPE_MASK_VARIATION;
 
             switch (inputType & InputType.TYPE_MASK_CLASS) {
-            case InputType.TYPE_CLASS_NUMBER:
-                return KeyboardId.MODE_NUMBER;
-            case InputType.TYPE_CLASS_DATETIME:
-                switch (variation) {
-                case InputType.TYPE_DATETIME_VARIATION_DATE:
-                    return KeyboardId.MODE_DATE;
-                case InputType.TYPE_DATETIME_VARIATION_TIME:
-                    return KeyboardId.MODE_TIME;
-                default: // InputType.TYPE_DATETIME_VARIATION_NORMAL
-                    return KeyboardId.MODE_DATETIME;
-                }
-            case InputType.TYPE_CLASS_PHONE:
-                return KeyboardId.MODE_PHONE;
-            case InputType.TYPE_CLASS_TEXT:
-                if (InputTypeUtils.isEmailVariation(variation)) {
-                    return KeyboardId.MODE_EMAIL;
-                } else if (variation == InputType.TYPE_TEXT_VARIATION_URI) {
-                    return KeyboardId.MODE_URL;
-                } else if (variation == InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
-                    return KeyboardId.MODE_IM;
-                } else if (variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
+                case InputType.TYPE_CLASS_NUMBER:
+                    return KeyboardId.MODE_NUMBER;
+                case InputType.TYPE_CLASS_DATETIME:
+                    switch (variation) {
+                        case InputType.TYPE_DATETIME_VARIATION_DATE:
+                            return KeyboardId.MODE_DATE;
+                        case InputType.TYPE_DATETIME_VARIATION_TIME:
+                            return KeyboardId.MODE_TIME;
+                        default: // InputType.TYPE_DATETIME_VARIATION_NORMAL
+                            return KeyboardId.MODE_DATETIME;
+                    }
+                case InputType.TYPE_CLASS_PHONE:
+                    return KeyboardId.MODE_PHONE;
+                case InputType.TYPE_CLASS_TEXT:
+                    if (InputTypeUtils.isEmailVariation(variation)) {
+                        return KeyboardId.MODE_EMAIL;
+                    } else if (variation == InputType.TYPE_TEXT_VARIATION_URI) {
+                        return KeyboardId.MODE_URL;
+                    } else if (variation == InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
+                        return KeyboardId.MODE_IM;
+                    } else if (variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
+                        return KeyboardId.MODE_TEXT;
+                    } else {
+                        return KeyboardId.MODE_TEXT;
+                    }
+                default:
                     return KeyboardId.MODE_TEXT;
-                } else {
-                    return KeyboardId.MODE_TEXT;
-                }
-            default:
-                return KeyboardId.MODE_TEXT;
             }
         }
     }

@@ -170,7 +170,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public void loadSettings(final Context context, final Locale locale,
-            @Nonnull final InputAttributes inputAttributes) {
+             final InputAttributes inputAttributes) {
         mSettingsValuesLock.lock();
         mContext = context;
         try {

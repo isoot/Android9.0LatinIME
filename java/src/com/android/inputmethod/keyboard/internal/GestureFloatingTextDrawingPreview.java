@@ -116,7 +116,7 @@ public class GestureFloatingTextDrawingPreview extends AbstractDrawingPreview {
         setSuggetedWords(SuggestedWords.getEmptyInstance());
     }
 
-    public void setSuggetedWords(@Nonnull final SuggestedWords suggestedWords) {
+    public void setSuggetedWords( final SuggestedWords suggestedWords) {
         if (!isPreviewEnabled()) {
             return;
         }

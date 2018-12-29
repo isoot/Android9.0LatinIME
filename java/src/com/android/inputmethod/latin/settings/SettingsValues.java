@@ -91,7 +91,7 @@ public class SettingsValues {
     public final int mScreenMetrics;
 
     // From the input box
-    @Nonnull
+
     public final InputAttributes mInputAttributes;
 
     // Deduced settings
@@ -120,7 +120,7 @@ public class SettingsValues {
     @Nullable public final String mAccount;
 
     public SettingsValues(final Context context, final SharedPreferences prefs, final Resources res,
-            @Nonnull final InputAttributes inputAttributes) {
+             final InputAttributes inputAttributes) {
         mLocale = res.getConfiguration().locale;
         // Get the resources
         mDelayInMillisecondsToUpdateOldSuggestions =

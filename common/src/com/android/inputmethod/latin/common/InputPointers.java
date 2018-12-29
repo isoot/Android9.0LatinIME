@@ -72,14 +72,14 @@ public final class InputPointers {
         mTimes.add(time);
     }
 
-    public void set(@Nonnull final InputPointers ip) {
+    public void set( final InputPointers ip) {
         mXCoordinates.set(ip.mXCoordinates);
         mYCoordinates.set(ip.mYCoordinates);
         mPointerIds.set(ip.mPointerIds);
         mTimes.set(ip.mTimes);
     }
 
-    public void copy(@Nonnull final InputPointers ip) {
+    public void copy( final InputPointers ip) {
         mXCoordinates.copy(ip.mXCoordinates);
         mYCoordinates.copy(ip.mYCoordinates);
         mPointerIds.copy(ip.mPointerIds);
@@ -96,9 +96,9 @@ public final class InputPointers {
      * @param startPos the starting index of the data in {@code times} and etc.
      * @param length the number of data to be appended.
      */
-    public void append(final int pointerId, @Nonnull final ResizableIntArray times,
-            @Nonnull final ResizableIntArray xCoordinates,
-            @Nonnull final ResizableIntArray yCoordinates, final int startPos, final int length) {
+    public void append(final int pointerId,  final ResizableIntArray times,
+             final ResizableIntArray xCoordinates,
+             final ResizableIntArray yCoordinates, final int startPos, final int length) {
         if (length == 0) {
             return;
         }
@@ -132,17 +132,17 @@ public final class InputPointers {
         return mXCoordinates.getLength();
     }
 
-    @Nonnull
+
     public int[] getXCoordinates() {
         return mXCoordinates.getPrimitiveArray();
     }
 
-    @Nonnull
+
     public int[] getYCoordinates() {
         return mYCoordinates.getPrimitiveArray();
     }
 
-    @Nonnull
+
     public int[] getPointerIds() {
         return mPointerIds.getPrimitiveArray();
     }
@@ -153,7 +153,7 @@ public final class InputPointers {
      * @return The time each point was registered, in milliseconds, relative to the first event in
      * the sequence.
      */
-    @Nonnull
+
     public int[] getTimes() {
         return mTimes.getPrimitiveArray();
     }

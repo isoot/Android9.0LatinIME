@@ -58,7 +58,7 @@ public final class InputMethodSubtypeCompatUtils {
     }
 
     @SuppressWarnings("deprecation")
-    @Nonnull
+
     public static InputMethodSubtype newInputMethodSubtype(int nameId, int iconId, String locale,
             String mode, String extraValue, boolean isAuxiliary,
             boolean overridesImplicitlyEnabledSubtype, int id) {

@@ -149,16 +149,16 @@ public interface DictionaryFacilitator {
             throws InterruptedException;
 
     void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+             final NgramContext ngramContext, final long timeStampInSeconds,
             final boolean blockPotentiallyOffensive);
 
     void unlearnFromUserHistory(final String word,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+             final NgramContext ngramContext, final long timeStampInSeconds,
             final int eventType);
 
     // TODO: Revise the way to fusion suggestion results.
-    @Nonnull SuggestionResults getSuggestionResults(final ComposedData composedData,
-            final NgramContext ngramContext, @Nonnull final Keyboard keyboard,
+     SuggestionResults getSuggestionResults(final ComposedData composedData,
+            final NgramContext ngramContext,  final Keyboard keyboard,
             final SettingsValuesForSuggestion settingsValuesForSuggestion, final int sessionId,
             final int inputStyle);
 
@@ -172,5 +172,5 @@ public interface DictionaryFacilitator {
 
     void dumpDictionaryForDebug(final String dictName);
 
-    @Nonnull List<DictionaryStats> getDictionaryStats(final Context context);
+     List<DictionaryStats> getDictionaryStats(final Context context);
 }

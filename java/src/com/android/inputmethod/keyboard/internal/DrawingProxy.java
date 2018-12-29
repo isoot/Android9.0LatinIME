@@ -29,14 +29,14 @@ public interface DrawingProxy {
      * @param key the {@link Key} that is being pressed.
      * @param withPreview true if key popup preview should be displayed.
      */
-    public void onKeyPressed(@Nonnull Key key, boolean withPreview);
+    public void onKeyPressed( Key key, boolean withPreview);
 
     /**
      * Called when a key is being released.
      * @param key the {@link Key} that is being released.
      * @param withAnimation when true, key popup preview should be dismissed with animation.
      */
-    public void onKeyReleased(@Nonnull Key key, boolean withAnimation);
+    public void onKeyReleased( Key key, boolean withAnimation);
 
     /**
      * Start showing more keys keyboard of a key that is being long pressed.
@@ -46,7 +46,7 @@ public interface DrawingProxy {
      *     keyboard.
      */
     @Nullable
-    public MoreKeysPanel showMoreKeysKeyboard(@Nonnull Key key, @Nonnull PointerTracker tracker);
+    public MoreKeysPanel showMoreKeysKeyboard( Key key,  PointerTracker tracker);
 
     /**
      * Start a while-typing-animation.
@@ -70,7 +70,7 @@ public interface DrawingProxy {
      * @param showsFloatingPreviewText when true, a gesture floating preview text will be shown
      * with this <code>tracker</code>'s trail.
      */
-    public void showGestureTrail(@Nonnull PointerTracker tracker, boolean showsFloatingPreviewText);
+    public void showGestureTrail( PointerTracker tracker, boolean showsFloatingPreviewText);
 
     /**
      * Dismiss a gesture floating preview text without delay.

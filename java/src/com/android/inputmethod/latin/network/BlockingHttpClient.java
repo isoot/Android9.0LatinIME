@@ -61,7 +61,7 @@ public class BlockingHttpClient {
      * @param request The request payload, if any, or null.
      * @param responseProcessor A processor for the HTTP response.
      */
-    public <T> T execute(@Nullable byte[] request, @Nonnull ResponseProcessor<T> responseProcessor)
+    public <T> T execute(@Nullable byte[] request,  ResponseProcessor<T> responseProcessor)
             throws IOException, AuthException, HttpException {
         if (DEBUG) {
             Log.d(TAG, "execute: " + mConnection.getURL());

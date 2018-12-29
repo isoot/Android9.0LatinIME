@@ -497,7 +497,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     public void addToUserHistory(final String suggestion, final boolean wasAutoCapitalized,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+             final NgramContext ngramContext, final long timeStampInSeconds,
             final boolean blockPotentiallyOffensive) {
         // Update the spelling cache before learning. Words that are not yet added to user history
         // and appear in no other language model are not considered valid.
@@ -517,8 +517,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     private void putWordIntoValidSpellingWordCache(
-            @Nonnull final String caller,
-            @Nonnull final String originalWord) {
+             final String caller,
+             final String originalWord) {
         if (mValidSpellingWordWriteCache == null) {
             return;
         }
@@ -599,7 +599,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     @Override
     public void unlearnFromUserHistory(final String word,
-            @Nonnull final NgramContext ngramContext, final long timeStampInSeconds,
+             final NgramContext ngramContext, final long timeStampInSeconds,
             final int eventType) {
         // TODO: Decide whether or not to remove the word on EVENT_BACKSPACE.
         if (eventType != Constants.EVENT_BACKSPACE) {
@@ -613,8 +613,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     // TODO: Revise the way to fusion suggestion results.
     @Override
-    @Nonnull public SuggestionResults getSuggestionResults(ComposedData composedData,
-            NgramContext ngramContext, @Nonnull final Keyboard keyboard,
+     public SuggestionResults getSuggestionResults(ComposedData composedData,
+            NgramContext ngramContext,  final Keyboard keyboard,
             SettingsValuesForSuggestion settingsValuesForSuggestion, int sessionId,
             int inputStyle) {
         long proximityInfoHandle = keyboard.getProximityInfo().getNativeProximityInfo();
@@ -719,7 +719,7 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
     }
 
     @Override
-    @Nonnull public List<DictionaryStats> getDictionaryStats(final Context context) {
+     public List<DictionaryStats> getDictionaryStats(final Context context) {
         final ArrayList<DictionaryStats> statsOfEnabledSubDicts = new ArrayList<>();
         for (final String dictType : DYNAMIC_DICTIONARY_TYPES) {
             final ExpandableBinaryDictionary dictionary = mDictionaryGroup.getSubDict(dictType);

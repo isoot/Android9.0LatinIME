@@ -29,7 +29,7 @@ public abstract class KeyStyle {
     public abstract int getInt(TypedArray a, int index, int defaultValue);
     public abstract int getFlags(TypedArray a, int index);
 
-    protected KeyStyle(@Nonnull final KeyboardTextsSet textsSet) {
+    protected KeyStyle( final KeyboardTextsSet textsSet) {
         mTextsSet = textsSet;
     }
 

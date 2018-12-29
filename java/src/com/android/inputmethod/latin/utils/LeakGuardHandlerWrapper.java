@@ -27,11 +27,11 @@ import javax.annotation.Nullable;
 public class LeakGuardHandlerWrapper<T> extends Handler {
     private final WeakReference<T> mOwnerInstanceRef;
 
-    public LeakGuardHandlerWrapper(@Nonnull final T ownerInstance) {
+    public LeakGuardHandlerWrapper( final T ownerInstance) {
         this(ownerInstance, Looper.myLooper());
     }
 
-    public LeakGuardHandlerWrapper(@Nonnull final T ownerInstance, final Looper looper) {
+    public LeakGuardHandlerWrapper( final T ownerInstance, final Looper looper) {
         super(looper);
         mOwnerInstanceRef = new WeakReference<>(ownerInstance);
     }

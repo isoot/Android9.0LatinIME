@@ -16,8 +16,6 @@
 
 package com.android.inputmethod.latin;
 
-import static com.android.inputmethod.latin.common.Constants.Subtype.KEYBOARD_MODE;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
@@ -25,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -46,8 +45,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import static com.android.inputmethod.latin.common.Constants.Subtype.KEYBOARD_MODE;
+
+
 
 /**
  * Enrichment class for InputMethodManager to simplify interaction and add functionality.
@@ -319,7 +319,7 @@ public class RichInputMethodManager {
         return INDEX_NOT_FOUND;
     }
 
-    public void onSubtypeChanged(@Nonnull final InputMethodSubtype newSubtype) {
+    public void onSubtypeChanged( final InputMethodSubtype newSubtype) {
         updateCurrentSubtype(newSubtype);
         updateShortcutIme();
         if (DEBUG) {
@@ -330,11 +330,11 @@ public class RichInputMethodManager {
     private static RichInputMethodSubtype sForcedSubtypeForTesting = null;
 
     @UsedForTesting
-    static void forceSubtype(@Nonnull final InputMethodSubtype subtype) {
+    static void forceSubtype( final InputMethodSubtype subtype) {
         sForcedSubtypeForTesting = RichInputMethodSubtype.getRichInputMethodSubtype(subtype);
     }
 
-    @Nonnull
+
     public Locale getCurrentSubtypeLocale() {
         if (null != sForcedSubtypeForTesting) {
             return sForcedSubtypeForTesting.getLocale();
@@ -342,7 +342,7 @@ public class RichInputMethodManager {
         return getCurrentSubtype().getLocale();
     }
 
-    @Nonnull
+
     public RichInputMethodSubtype getCurrentSubtype() {
         if (null != sForcedSubtypeForTesting) {
             return sForcedSubtypeForTesting;
